@@ -550,7 +550,7 @@ const ALL_QUESTIONS = [
   {id:"d35",en:"What recurring pattern in your life might be your shadow calling out to you?",fr:"Quel schéma récurrent dans ta vie pourrait être ton ombre qui t'appelle?",depth:"deep"},
   {id:"d36",en:"What are you pretending you have no choice about?",fr:"Sur quoi tu fais semblant de ne pas avoir le choix?",depth:"deep"},
   {id:"d37",en:"What decision are you avoiding right now, and what does that avoidance cost you?",fr:"Quelle décision t'évites en ce moment, et ça te coûte quoi de l'éviter?",depth:"deep"},
-  {id:"d38",en:"Which of your 'I can't' statements are actually 'I won't' statements in disguise?",fr:"Lesquels de tes 'je ne peux pas' sont en fait des 'je ne veux pas' déguisés?",depth:"deep"},
+  {id:"d38",en:"Which of your 'I can't' statements are actually 'I won't' statements in disguise?",fr:"Lesquels de tes \"<em>je ne peux pas</em>\" sont en fait des \"<em>je ne veux pas</em>\" déguisés?",depth:"deep"},
   {id:"d39",en:"Is there anything you want that, once obtained, won't just be replaced by wanting something else?",fr:"Seras-tu vraiment comblé après avoir obtenu ce que tu désires le plus?",depth:"deep"},
   {id:"d41",en:"What are you punishing yourself for that you would forgive in anyone else?",fr:"Qu'est-ce que tu te reproches, que tu pardonnerais à n'importe qui d'autre?",depth:"deep"},
   {id:"d43",en:"When did you first learn to be ashamed?",fr:"C'était quand la première fois que t'as appris à avoir honte?",depth:"deep"},
@@ -580,7 +580,7 @@ const ALL_QUESTIONS = [
   {id:"m31",en:"Do you test people before you trust them? How?",fr:"Tu testes les gens avant de leur faire confiance? Comment?",depth:"deep"},
   {id:"m32",en:"What insecurity holds you back the most?",fr:"Quelle insécurité te freine le plus?",depth:"deep"},
   {id:"m34",en:"What are you still trying to prove, and to whom?",fr:"Qu'est-ce que t'essaies encore de prouver, et à qui?",depth:"deep"},
-  {id:"m36",en:"What did the people who raised you teach you about love?",fr:"Ceux qui t'ont élevé, ils t'ont appris quoi sur l'amour?",depth:"deep"},
+  {id:"m36",en:"What did the people who raised you teach you about love?",fr:"Qu'est-ce que les personnes qui t'ont élevé t'ont appris sur l'amour?",depth:"deep"},
   {id:"m37",en:"What emotion was not allowed in your home growing up?",fr:"Quelle émotion as-tu toujours eu du mal à exprimer?",depth:"deep"},
   {id:"m38",en:"What role were you assigned in your family, and are you still playing it?",fr:"C'était quoi ton rôle dans ta famille, et tu le joues encore?",depth:"deep"},
   {id:"m40",en:"Are you suffering because of what happened, or because of your attachment to how things should be?",fr:"Tu souffres à cause de ce qui s'est passé, ou à cause de ton attachement à comment les choses auraient dû être?",depth:"deep"},
@@ -709,20 +709,20 @@ function resetCarousel(){
 }
 function updateAllSlots(){
   const cur=getCurrentQuestion();
-  document.getElementById('q-text').textContent=cur?cur[lang]:'';
+  document.getElementById('q-text').innerHTML=cur?cur[lang]:'';
   if(cur)seenIds.add(cur.id);
   // Prev slot
   let prevDepth='light';
   if(navHistory.length>0){
     const p=navHistory[navHistory.length-1];
     const pq=getQ(p.depth,p.index);
-    document.getElementById('q-text-prev').textContent=pq?pq[lang]:'';
+    document.getElementById('q-text-prev').innerHTML=pq?pq[lang]:'';
     prevDepth=p.depth;
-  } else {document.getElementById('q-text-prev').textContent='';}
+  } else {document.getElementById('q-text-prev').innerHTML='';}
   updateSideStones('prev',prevDepth);
   // Next slot
   const nq=getQ(currentDepth,depthIndex[currentDepth]+1);
-  document.getElementById('q-text-next').textContent=nq?nq[lang]:'';
+  document.getElementById('q-text-next').innerHTML=nq?nq[lang]:'';
   updateSideStones('next',currentDepth);
   // Heart
   currentLiked=cur?likedSet.has(cur.id):false;
@@ -824,7 +824,7 @@ function goDeeper(){
     const nextDepth=DEPTHS[ci+1];
     // Prep next slot with the deeper question
     const dq=getQ(nextDepth,depthIndex[nextDepth]);
-    document.getElementById('q-text-next').textContent=dq?dq[lang]:'';
+    document.getElementById('q-text-next').innerHTML=dq?dq[lang]:'';
     animateCarousel('left',()=>{currentDepth=nextDepth;});
   } else {goNext();}
 }
