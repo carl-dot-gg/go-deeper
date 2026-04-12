@@ -4,7 +4,7 @@ A bilingual (EN/FR) conversation card game that helps people have meaningful con
 
 ## 🎮 Play
 
-Open `index.html` in your browser or visit: [your-github-pages-url]
+Open `index.html` in your browser or visit: (https://carl-dot-gg.github.io/go-deeper/)
 
 ## 📖 How it works
 
