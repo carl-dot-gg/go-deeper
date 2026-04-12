@@ -857,6 +857,14 @@ function updateDepthLabel(){
   document.getElementById('depth-label').textContent=t(DEPTH_LABELS[currentDepth]);
 }
 
+// ── KEYBOARD ──
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('screen-session').classList.contains('active'))return;
+  if(document.getElementById('deeper-prompt').classList.contains('visible'))return;
+  if(e.key==='ArrowLeft')goPrev();
+  else if(e.key==='ArrowRight')goNext();
+});
+
 // ── HEART ──
 function toggleHeart(e){
   e.stopPropagation();const q=getCurrentQuestion();if(!q)return;
