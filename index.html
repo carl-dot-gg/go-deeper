@@ -78,7 +78,7 @@
   /* Card area — carousel container */
   .card-area { flex: 1; display: flex; align-items: center; justify-content: center; padding: 0.5rem 0; position: relative; }
   .card-wrapper { width: 100%; max-width: 520px; position: relative; overflow: clip; padding: 0 1rem; }
-  .carousel { display: flex; width: 300%; position: relative; transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); transform: translateX(-33.3333%); }
+  .carousel { display: flex; width: 300%; position: relative; transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); transform: translateX(-33.3333%); touch-action: pan-y; }
   .carousel.swiping { transition: none; }
   .carousel-slot { width: 33.3333%; flex-shrink: 0; padding: 0 1.5rem; }
 
@@ -86,15 +86,12 @@
     background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
     padding: 1.75rem 1.75rem 1rem; width: 100%; position: relative;
     user-select: none; display: flex; flex-direction: column; justify-content: center;
-    min-height: 220px;
+    height: 260px; touch-action: pan-y;
   }
-  .q-text { font-family: 'DM Serif Display', serif; font-size: 24px; line-height: 1.38; color: var(--text); letter-spacing: -0.3px; text-align: left; flex: 1; display: flex; align-items: center; }
+  .q-text { font-family: 'DM Serif Display', serif; font-size: clamp(18px, 4.5vw, 24px); line-height: 1.38; color: var(--text); letter-spacing: -0.3px; text-align: left; flex: 1; display: flex; align-items: center; overflow: hidden; }
   @media (max-height: 700px) {
-    .q-card { min-height: 180px; }
-    .q-text { font-size: 20px; }
-  }
-  @media (max-width: 380px) {
-    .q-text { font-size: 20px; }
+    .q-card { height: 220px; }
+    .q-text { font-size: clamp(16px, 4vw, 20px); }
   }
   .card-bottom { width: 100%; margin-top: 1rem; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
   .card-bottom-row { display: flex; align-items: center; justify-content: space-between; width: 100%; height: 30px; }
@@ -812,29 +809,39 @@ function updateLovedText(){
 // ── SWIPE ──
 function initSwipe(){
   const car=document.getElementById('carousel');
-  let startX=0,startY=0,isDragging=false,moved=false,dx=0;
-  function onStart(x,y){startX=x;startY=y;isDragging=true;moved=false;dx=0;car.classList.add('swiping');car.style.transition='none';}
-  function onMove(x,y){
+  let startX=0,startY=0,startTime=0,isDragging=false,locked=false,dirH=false,dx=0;
+  function onStart(x,y){startX=x;startY=y;startTime=Date.now();isDragging=true;locked=false;dirH=false;dx=0;car.classList.add('swiping');car.style.transition='none';}
+  function onMove(x,y,e){
     if(!isDragging)return;
     const ddx=x-startX,dy=y-startY;
-    if(!moved&&Math.abs(dy)>Math.abs(ddx)+8){isDragging=false;car.classList.remove('swiping');car.style.transform='translateX(-33.3333%)';return;}
-    moved=true;dx=ddx;
+    if(!locked){
+      if(Math.abs(ddx)<6&&Math.abs(dy)<6)return;
+      dirH=Math.abs(ddx)>=Math.abs(dy);
+      locked=true;
+      if(!dirH){isDragging=false;car.classList.remove('swiping');car.style.transform='translateX(-33.3333%)';return;}
+    }
+    if(dirH&&e&&e.cancelable)e.preventDefault();
+    dx=ddx;
     const base=-33.3333;
-    const pct=base+(dx/car.parentElement.offsetWidth)*0.6*100;
+    const pct=base+(dx/car.parentElement.offsetWidth)*100;
     car.style.transform='translateX('+pct+'%)';
   }
   function onEnd(){
     if(!isDragging)return;isDragging=false;car.classList.remove('swiping');
-    if(dx<-90){goNext();}
-    else if(dx>90){goPrev();}
+    const elapsed=Date.now()-startTime;
+    const velocity=Math.abs(dx)/(elapsed||1);
+    const triggered=Math.abs(dx)>50||(Math.abs(dx)>20&&velocity>0.4);
+    if(triggered&&dx<0){goNext();}
+    else if(triggered&&dx>0){goPrev();}
     else{car.style.transition='transform 0.25s ease';car.style.transform='translateX(-33.3333%)';}
   }
   const main=document.getElementById('q-card-main');
-  main.addEventListener('mousedown',e=>{if(!e.target.closest('.heart-btn')&&!e.target.closest('.stones-row')&&!e.target.closest('.stone'))onStart(e.clientX,e.clientY);});
-  window.addEventListener('mousemove',e=>{if(isDragging)onMove(e.clientX,e.clientY);});
+  function skip(e){return e.target.closest('.heart-btn')||e.target.closest('.stones-row')||e.target.closest('.stone');}
+  main.addEventListener('mousedown',e=>{if(!skip(e))onStart(e.clientX,e.clientY);});
+  window.addEventListener('mousemove',e=>{if(isDragging)onMove(e.clientX,e.clientY,e);});
   window.addEventListener('mouseup',()=>onEnd());
-  main.addEventListener('touchstart',e=>{if(!e.target.closest('.heart-btn')&&!e.target.closest('.stones-row')&&!e.target.closest('.stone')){const t=e.touches[0];onStart(t.clientX,t.clientY);}},{passive:true});
-  main.addEventListener('touchmove',e=>{const t=e.touches[0];onMove(t.clientX,t.clientY);},{passive:true});
+  main.addEventListener('touchstart',e=>{if(!skip(e)){const t=e.touches[0];onStart(t.clientX,t.clientY);}},{passive:true});
+  main.addEventListener('touchmove',e=>{const t=e.touches[0];onMove(t.clientX,t.clientY,e);},{passive:false});
   main.addEventListener('touchend',()=>onEnd());
 }
 
