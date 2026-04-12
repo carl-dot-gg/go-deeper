@@ -54,9 +54,14 @@
   .menu-item:hover { background: var(--bg); }
   .menu-item svg { width: 20px; height: 20px; stroke: var(--text-muted); flex-shrink: 0; }
   .menu-item .theme-icon { width: 20px; height: 20px; flex-shrink: 0; }
-  .menu-lang { padding: 12px 1.5rem; display: flex; align-items: center; gap: 12px; cursor: pointer; font-size: 15px; color: var(--text); }
-  .menu-lang:hover { background: var(--bg); }
+  .menu-lang-section { border-top: 1px solid var(--border); margin-top: 4px; padding-top: 4px; }
   .menu-lang-flag { font-size: 20px; }
+  .menu-lang-chevron { font-size: 10px; color: var(--text-muted); margin-left: auto; transition: transform 0.2s; }
+  .menu-lang-chevron.open { transform: rotate(180deg); }
+  .menu-lang-options { display: none; padding: 0 0 4px; }
+  .menu-lang-options.visible { display: block; }
+  .menu-lang-option { padding: 10px 1.5rem 10px 3.5rem; font-size: 14px; color: var(--text); cursor: pointer; display: flex; align-items: center; gap: 8px; }
+  .menu-lang-option:hover { background: var(--bg); }
 
   body { background: var(--bg); font-family: 'DM Sans', sans-serif; height: 100vh; height: 100dvh; overflow: hidden; }
   .screen { display: none; height: 100vh; height: 100dvh; flex-direction: column; overflow: hidden; }
@@ -245,9 +250,16 @@
         <span id="theme-toggle"></span>
         <span id="menu-theme-label">Dark mode</span>
       </div>
-      <div class="menu-lang" onclick="cycleLang();closeMenu()">
-        <span class="menu-lang-flag" id="menu-lang-flag">🇬🇧</span>
-        <span id="menu-lang-label">English</span>
+      <div class="menu-lang-section">
+        <div class="menu-item" onclick="toggleMenuLang()">
+          <span class="menu-lang-flag" id="menu-lang-flag">🇬🇧</span>
+          <span id="menu-lang-label">English</span>
+          <span class="menu-lang-chevron" id="menu-lang-chevron">▾</span>
+        </div>
+        <div class="menu-lang-options" id="menu-lang-options">
+          <div class="menu-lang-option" onclick="setLang('en');closeMenu()">🇬🇧 <span class="lang-label">English</span></div>
+          <div class="menu-lang-option" onclick="setLang('fr');closeMenu()">🇫🇷 <span class="lang-label">Français</span></div>
+        </div>
       </div>
     </div>
   </div>
@@ -635,10 +647,17 @@ let navHistory=[], swipeReady=false, currentLiked=false;
 function t(k){return(STRINGS[lang]&&STRINGS[lang][k])||STRINGS.en[k]||k;}
 
 // ── MENU ──
-function openMenu(){document.getElementById('menu-overlay').classList.add('visible');}
+function openMenu(){
+  document.getElementById('menu-overlay').classList.add('visible');
+  document.getElementById('menu-lang-options').classList.remove('visible');
+  document.getElementById('menu-lang-chevron').classList.remove('open');
+}
 function closeMenu(){document.getElementById('menu-overlay').classList.remove('visible');}
-function cycleLang(){
-  setLang(lang==='en'?'fr':'en');
+function toggleMenuLang(){
+  const opts=document.getElementById('menu-lang-options');
+  const chev=document.getElementById('menu-lang-chevron');
+  opts.classList.toggle('visible');
+  chev.classList.toggle('open');
 }
 function toggleLang(e){
   if(e) e.stopPropagation();
