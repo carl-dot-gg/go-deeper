@@ -1,0 +1,1016 @@
+[
+  {
+    "id": "l01",
+    "depth": "light",
+    "en": "If you had to actually live inside a TV show, which one and why?",
+    "fr": "Si tu devais vivre dans une série, ce serait laquelle et pourquoi?"
+  },
+  {
+    "id": "l02",
+    "depth": "light",
+    "en": "If you got arrested for no reason, what would your friends assume you did?",
+    "fr": "Si tu te faisais arrêter sans raison, tes potes penseraient que t'as fait quoi?"
+  },
+  {
+    "id": "l04",
+    "depth": "light",
+    "en": "What do you do alone that you'd never do in public or in front of someone?",
+    "fr": "Qu'est-ce que tu fais seul mais que tu ferais jamais en public ou devant quelqu'un?"
+  },
+  {
+    "id": "l05",
+    "depth": "light",
+    "en": "When do you do your best thinking, and where are you usually?",
+    "fr": "Tu réfléchis le mieux quand et t'es où en général?"
+  },
+  {
+    "id": "l06",
+    "depth": "light",
+    "en": "What's the last thing that made you laugh until it hurt?",
+    "fr": "Le dernier truc qui t'a fait pleurer de rire?"
+  },
+  {
+    "id": "l07",
+    "depth": "light",
+    "en": "What's your hidden talent that surprises people?",
+    "fr": "Quel est ton talent caché qui surprend les gens?"
+  },
+  {
+    "id": "l08",
+    "depth": "light",
+    "en": "What's something you're weirdly competitive about?",
+    "fr": "Sur quoi t'es bizarrement compétitif?"
+  },
+  {
+    "id": "l09",
+    "depth": "light",
+    "en": "If everyone here had to survive on an island together, what role would you claim?",
+    "fr": "Si on devait tous survivre sur une île, tu prendrais quel rôle?"
+  },
+  {
+    "id": "l10",
+    "depth": "light",
+    "en": "What's something you've been quietly obsessed with lately?",
+    "fr": "Quelle est ton obsession du moment que personne ne sait?"
+  },
+  {
+    "id": "l11",
+    "depth": "light",
+    "en": "What's a small thing that makes your day noticeably better?",
+    "fr": "Quel petit truc change ta journée?"
+  },
+  {
+    "id": "l12",
+    "depth": "light",
+    "en": "What's a hill you will absolutely die on that doesn't matter at all?",
+    "fr": "Sur quel sujet tu lâcheras jamais alors que ça sert à rien?"
+  },
+  {
+    "id": "l13",
+    "depth": "light",
+    "en": "What's the worst advice you've ever received with a straight face?",
+    "fr": "Quel est le pire conseil qu'on t'a donné sérieusement?"
+  },
+  {
+    "id": "l16",
+    "depth": "light",
+    "en": "If your life had a trailer, what would the voiceover say?",
+    "fr": "Si ta vie avait une bande-annonce, la voix off dirait quoi?"
+  },
+  {
+    "id": "l18",
+    "depth": "light",
+    "en": "What's something you own that has value to no one but you?",
+    "fr": "Quel est l'objet que tu possèdes, qui n'a de la valeur pour personne d'autre que toi?"
+  },
+  {
+    "id": "l19",
+    "depth": "light",
+    "en": "Would you like to be famous? In what way?",
+    "fr": "Tu voudrais être célèbre? De quelle manière?"
+  },
+  {
+    "id": "l20",
+    "depth": "light",
+    "en": "If you could wake up tomorrow having gained one quality or ability, what would it be?",
+    "fr": "Si tu pouvais te réveiller demain avec une nouvelle qualité ou capacité, ce serait quoi?"
+  },
+  {
+    "id": "d01",
+    "depth": "medium",
+    "en": "When have you felt the most alive?",
+    "fr": "À quel moment tu t'es senti le plus vivant?"
+  },
+  {
+    "id": "d02",
+    "depth": "medium",
+    "en": "What brings out the best version of you?",
+    "fr": "Qu'est-ce qui fait ressortir la meilleure version de toi-même?"
+  },
+  {
+    "id": "d56",
+    "depth": "medium",
+    "en": "You're given unlimited resources and 5 years. What do you build?",
+    "fr": "On te donne des ressources illimitées et 5 ans. Tu construis quoi?"
+  },
+  {
+    "id": "d57",
+    "depth": "medium",
+    "en": "A kid asks you to teach them the one thing you do better than anyone. What is it?",
+    "fr": "Un gamin te demande de lui apprendre le truc que tu fais mieux que personne. C'est quoi?"
+  },
+  {
+    "id": "d62",
+    "depth": "medium",
+    "en": "You're the world's dictator for a day. Everything you say goes. What's your first decision?",
+    "fr": "T'es dictateur du monde pour une journée. Tout ce que tu dis est exécuté. C'est quoi ta première décision?"
+  },
+  {
+    "id": "d67",
+    "depth": "medium",
+    "en": "You arrive at Burning Man. For 24 hours, no one knows you and no one will remember anything. How do you show up?",
+    "fr": "T'arrives au Burning Man. Pendant 24h, personne te connaît et personne se souviendra de rien. Tu te montres comment?"
+  },
+  {
+    "id": "l17",
+    "depth": "medium",
+    "en": "What's a compliment you got once that you still think about?",
+    "fr": "Quel compliment tu as reçu et auquel tu penses encore?"
+  },
+  {
+    "id": "l21",
+    "depth": "medium",
+    "en": "For what in your life do you feel most grateful?",
+    "fr": "Pour quoi dans ta vie tu te sens le plus reconnaissant?"
+  },
+  {
+    "id": "l22",
+    "depth": "medium",
+    "en": "What do you crave more of?",
+    "fr": "De quoi t'as envie d'avoir plus?"
+  },
+  {
+    "id": "l23",
+    "depth": "medium",
+    "en": "If a miracle happened tonight and your biggest problem was solved, how would you know tomorrow?",
+    "fr": "Si un miracle se produisait cette nuit et que ton plus gros problème était résolu, comment tu le saurais demain?"
+  },
+  {
+    "id": "l26",
+    "depth": "medium",
+    "en": "What recurring dream do you have?",
+    "fr": "C'est quoi ton rêve récurrent?"
+  },
+  {
+    "id": "m01",
+    "depth": "medium",
+    "en": "What's something you like about yourself that almost no one knows?",
+    "fr": "Qu'est-ce que tu aimes chez toi que quasiment personne ne connaît?"
+  },
+  {
+    "id": "m02",
+    "depth": "medium",
+    "en": "Is there a memory from your childhood that kind of made you who you are?",
+    "fr": "Quel souvenir d'enfance t'a un peu construit?"
+  },
+  {
+    "id": "m03",
+    "depth": "medium",
+    "en": "What do you keep putting off, and what's really stopping you?",
+    "fr": "Qu'est-ce que tu repousses depuis longtemps, et qu'est-ce qui te bloque?"
+  },
+  {
+    "id": "m04",
+    "depth": "medium",
+    "en": "What conviction did you hold that you've completely changed your mind on?",
+    "fr": "Quelle est la conviction que tu avais, sur laquelle tu as complètement changé d'avis?"
+  },
+  {
+    "id": "m05",
+    "depth": "medium",
+    "en": "What's the best advice anyone ever gave you?",
+    "fr": "Quel est le meilleur conseil qu'on t'ait jamais donné?"
+  },
+  {
+    "id": "m06",
+    "depth": "medium",
+    "en": "If the next 5 years were a chapter in your life, what would it be called?",
+    "fr": "Si les 5 prochaines années étaient un chapitre de ta vie, il s'appellerait comment?"
+  },
+  {
+    "id": "m07",
+    "depth": "medium",
+    "en": "Who changed the way you see the world, and how?",
+    "fr": "Quelle personne a changé ta façon de voir les choses, et comment?"
+  },
+  {
+    "id": "m08",
+    "depth": "medium",
+    "en": "Is there something a stranger once said to you that you still think about?",
+    "fr": "Est-ce qu'il y a une phrase prononcé par un inconnu, à laquelle tu penses encore?"
+  },
+  {
+    "id": "m09",
+    "depth": "medium",
+    "en": "What do people tend to get wrong about you?",
+    "fr": "Sur quoi les gens se trompent souvent, lorsqu'ils te rencontrent pour la premiere fois?"
+  },
+  {
+    "id": "m10",
+    "depth": "medium",
+    "en": "When do you actually feel like yourself?",
+    "fr": "Quand est-ce que tu te sens vraiment toi-même?"
+  },
+  {
+    "id": "m11",
+    "depth": "medium",
+    "en": "What did your parents actually get right?",
+    "fr": "Tes parents ont eu raison sur quoi?"
+  },
+  {
+    "id": "m12",
+    "depth": "medium",
+    "en": "What did someone teach you simply by being themselves?",
+    "fr": "Qu'est-ce qu'une personne t'a appris, en étant simplement elle-même?"
+  },
+  {
+    "id": "m13",
+    "depth": "medium",
+    "en": "Is there a rule everyone follows that you find questionable?",
+    "fr": "Est-ce qu'il y a une règle que tout le monde suit mais que tu trouves discutable?"
+  },
+  {
+    "id": "m14",
+    "depth": "medium",
+    "en": "What's the story your family tells every time you're together?",
+    "fr": "C'est quoi l histoire de famille que vous racontez toujours lorsque vous etes enesemble?"
+  },
+  {
+    "id": "m15",
+    "depth": "medium",
+    "en": "What's the kindest thing someone did for you that they've probably forgotten?",
+    "fr": "C'est quoi la chose la plus sympa que quelqu'un ai faite pour toi, et qu'elle a a probabelment deja oublie?"
+  },
+  {
+    "id": "m16",
+    "depth": "medium",
+    "en": "What question do you wish people asked you more often?",
+    "fr": "Quelle que tu aimerais qu on te demande plus souvent?"
+  },
+  {
+    "id": "m17",
+    "depth": "medium",
+    "en": "What do you find beautiful that most people miss or ignore?",
+    "fr": "Qu'est-ce que tu trouves de beau, que la plupart des gens negligent?"
+  },
+  {
+    "id": "m18",
+    "depth": "medium",
+    "en": "If we ran into each other 1 year from now, what would we be celebrating?",
+    "fr": "Si on se croise dans 1 an, on fête quoi?"
+  },
+  {
+    "id": "m19",
+    "depth": "medium",
+    "en": "What did your teenage room look like? Describe it.",
+    "fr": "A quoi ressemblait ta chambre d'ado?"
+  },
+  {
+    "id": "m20",
+    "depth": "medium",
+    "en": "What was the best year of your life?",
+    "fr": "Quelle a été la meilleure année de ta vie?"
+  },
+  {
+    "id": "m21",
+    "depth": "medium",
+    "en": "What habit do you always hide on a first date?",
+    "fr": "Quelle manie tu tentes toujours de cacher lors d'un premier date?"
+  },
+  {
+    "id": "m23",
+    "depth": "medium",
+    "en": "What did you learn about money that you wish someone had taught you earlier?",
+    "fr": "Qu'est-ce que tu as appris sur l'argent que tu aurais aimé qu'on t'enseigne plus tôt?"
+  },
+  {
+    "id": "m26",
+    "depth": "medium",
+    "en": "Do you feel like a different person depending on what language you're speaking?",
+    "fr": "Tu te sens différent selon la langue dans laquelle tu parles?"
+  },
+  {
+    "id": "m35",
+    "depth": "medium",
+    "en": "What lesson took you the longest to unlearn?",
+    "fr": "Quelle leçon t'a pris le plus de temps à désapprendre?"
+  },
+  {
+    "id": "m41",
+    "depth": "medium",
+    "en": "What opinion do you hold that you've never truly questioned?",
+    "fr": "Quelle opinion tu as jamais vraiment remise en question?"
+  },
+  {
+    "id": "m43",
+    "depth": "medium",
+    "en": "World leaders have gathered and they call you to fix one thing. What is it?",
+    "fr": "Les dirigeants du monde se sont réunis et ils t'appellent pour régler un truc. C'est quoi?"
+  },
+  {
+    "id": "d03",
+    "depth": "deep",
+    "en": "What did you stop fighting in yourself?",
+    "fr": "Contre quoi t'as arrêté de te battre?"
+  },
+  {
+    "id": "d04",
+    "depth": "deep",
+    "en": "When did you realize your parents didn't know everything and were doing the best they could?",
+    "fr": "Quand est-ce que t'as réalisé que tes parents ne savaient pas tout, et faisaient du mieux qu'ils pouvaient?"
+  },
+  {
+    "id": "d05",
+    "depth": "deep",
+    "en": "What would a life you're proud of actually look like?",
+    "fr": "À quoi ressemblerait une vie dont tu serais fier?"
+  },
+  {
+    "id": "d07",
+    "depth": "deep",
+    "en": "When things get hard with someone you love, what do you need but never express?",
+    "fr": "Quand ça devient compliqué avec quelqu'un que t'aimes, de quoi tu as besoin, que tu n'exprimes jamais?"
+  },
+  {
+    "id": "d09",
+    "depth": "deep",
+    "en": "What's the thing you most wish you could go back and do differently?",
+    "fr": "Si tu pouvais revenir en arrière et changer une chose, ce serait quoi?"
+  },
+  {
+    "id": "d11",
+    "depth": "deep",
+    "en": "What would your 9-year-old self think about who you've become?",
+    "fr": "Le toi de 9 ans, il penserait quoi de qui t'es devenu?"
+  },
+  {
+    "id": "d12",
+    "depth": "deep",
+    "en": "Who in your life would be the hardest to lose, and why?",
+    "fr": "Quelle personne dans ta vie serait la plus dure à perdre, et pourquoi?"
+  },
+  {
+    "id": "d13",
+    "depth": "deep",
+    "en": "What's the single decision that shaped your life the most?",
+    "fr": "Quelle est la décision qui a le plus changé ta vie?"
+  },
+  {
+    "id": "d14",
+    "depth": "deep",
+    "en": "If you had 1 year left to live, what would you change?",
+    "fr": "S'il te restait 1 an à vivre, qu'est-ce que tu changerais?"
+  },
+  {
+    "id": "d15",
+    "depth": "deep",
+    "en": "What part of yourself do you guard the most, and why?",
+    "fr": "Quelle partie de toi tu protèges le plus, et pourquoi?"
+  },
+  {
+    "id": "d16",
+    "depth": "deep",
+    "en": "What version of yourself are you slowly becoming?",
+    "fr": "Vers quelle version de toi te diriges tu, doucement?"
+  },
+  {
+    "id": "d17",
+    "depth": "deep",
+    "en": "What are you ready to leave behind to move forward?",
+    "fr": "Qu'est-ce que tu es prêt à laisser derrière toi pour avancer?"
+  },
+  {
+    "id": "d18",
+    "depth": "deep",
+    "en": "What have you forgiven but never actually forgotten?",
+    "fr": "Qu'est-ce que tu as pardonné, sans jamais vraiment avoir oublié?"
+  },
+  {
+    "id": "d19",
+    "depth": "deep",
+    "en": "What's the hardest truth you've had to accept?",
+    "fr": "Quelle est la vérité la plus dure que tu as dû accepter?"
+  },
+  {
+    "id": "d20",
+    "depth": "deep",
+    "en": "What has fear already cost you?",
+    "fr": "Qu'est-ce que la peur t'a déjà coûté?"
+  },
+  {
+    "id": "d21",
+    "depth": "deep",
+    "en": "Who do you become when you're around the wrong people?",
+    "fr": "Tu deviens qui quand t'es avec les mauvaises personnes?"
+  },
+  {
+    "id": "d22",
+    "depth": "deep",
+    "en": "What conversation keeps playing on loop in your head?",
+    "fr": "Quelle est la conversation qui tourne en boucle dans ta tête?"
+  },
+  {
+    "id": "d23",
+    "depth": "deep",
+    "en": "What did you blame on someone else when you were the one responsible?",
+    "fr": "Qu'est-ce que tu as mis sur le dos de quelqu'un, alors que tu en étais responsable?"
+  },
+  {
+    "id": "d24",
+    "depth": "deep",
+    "en": "What promise did you break that still weighs on you?",
+    "fr": "Quelle est la promesse que tu n'as pas tenue, et qui te pèse encore?"
+  },
+  {
+    "id": "d26",
+    "depth": "deep",
+    "en": "When have you felt the most alone in your life?",
+    "fr": "À quel moment tu t'es senti le plus seul dans ta vie?"
+  },
+  {
+    "id": "d27",
+    "depth": "deep",
+    "en": "Have you ever been jealous of someone you were supposed to be happy for?",
+    "fr": "T'as déjà été jaloux de quelqu'un pour qui t'étais censé être content?"
+  },
+  {
+    "id": "d28",
+    "depth": "deep",
+    "en": "What have you done for money that you'd never do for free?",
+    "fr": "Qu'est-ce que tu as déjà fait pour de l'argent, que tu n'aurais jamais fait gratuitement?"
+  },
+  {
+    "id": "d29",
+    "depth": "deep",
+    "en": "What part of aging are you not ready to accept?",
+    "fr": "Quel est l'aspect de la vieillesse aue tu as ou aura du mal a accepter?"
+  },
+  {
+    "id": "d30",
+    "depth": "deep",
+    "en": "What did you inherit from your parents that you wish you hadn't?",
+    "fr": "Qu'est-ce que tu as hérité de tes parents, que tu aurais préféré ne pas avoir?"
+  },
+  {
+    "id": "d31",
+    "depth": "deep",
+    "en": "What do you keep going back to even though you know it hurts you?",
+    "fr": "Vers quoi tu te retournes toujours alors que tu sais que ça te fait du mal?"
+  },
+  {
+    "id": "d32",
+    "depth": "deep",
+    "en": "When do you feel the most vulnerable?",
+    "fr": "Quand est-ce que tu te sens le plus vulnérable?"
+  },
+  {
+    "id": "d33",
+    "depth": "deep",
+    "en": "What trait do you most hate in others? Where does it exist in you?",
+    "fr": "C'est quoi le trait que tu détestes le plus chez les autres? Il existe où en toi?"
+  },
+  {
+    "id": "d34",
+    "depth": "deep",
+    "en": "Who would you be if you weren't trying so hard to be good?",
+    "fr": "Tu serais qui si t'essayais pas si fort d'être quelqu'un de bien?"
+  },
+  {
+    "id": "d35",
+    "depth": "deep",
+    "en": "What recurring pattern in your life might be your shadow calling out to you?",
+    "fr": "Quel schéma récurrent dans ta vie pourrait être ton ombre qui t'appelle?"
+  },
+  {
+    "id": "d36",
+    "depth": "deep",
+    "en": "What are you pretending you have no choice about?",
+    "fr": "Sur quoi tu fais semblant d'avoir pas le choix?"
+  },
+  {
+    "id": "d37",
+    "depth": "deep",
+    "en": "What decision are you avoiding right now, and what does that avoidance cost you?",
+    "fr": "Quelle décision t'évites en ce moment, et ça te coûte quoi de l'éviter?"
+  },
+  {
+    "id": "d38",
+    "depth": "deep",
+    "en": "Which of your 'I can't' statements are actually 'I won't' statements in disguise?",
+    "fr": "Lesquels de tes 'je peux pas' sont en fait des 'je veux pas' déguisés?"
+  },
+  {
+    "id": "d39",
+    "depth": "deep",
+    "en": "Is there anything you want that, once obtained, won't just be replaced by wanting something else?",
+    "fr": "Y a-t-il quelque chose que tu veux qui, une fois obtenu, sera pas juste remplacé par une autre envie?"
+  },
+  {
+    "id": "d41",
+    "depth": "deep",
+    "en": "What are you punishing yourself for that you would forgive in anyone else?",
+    "fr": "Pour quoi tu te punis que tu pardonnerais à n'importe qui d'autre?"
+  },
+  {
+    "id": "d43",
+    "depth": "deep",
+    "en": "When did you first learn to be ashamed?",
+    "fr": "C'était quand la première fois que t'as appris à avoir honte?"
+  },
+  {
+    "id": "d45",
+    "depth": "deep",
+    "en": "What keeps you from feeling safe, even when you are safe?",
+    "fr": "Qu'est-ce qui t'empêche de te sentir en sécurité, même quand tu l'es?"
+  },
+  {
+    "id": "d46",
+    "depth": "deep",
+    "en": "Who do you usually talk to inside your head?",
+    "fr": "À qui tu parles d'habitude dans ta tête?"
+  },
+  {
+    "id": "d47",
+    "depth": "deep",
+    "en": "What would your family say is wrong with you, and when did you start believing them?",
+    "fr": "Ta famille dirait quoi qui va pas chez toi, et t'as commencé à les croire quand?"
+  },
+  {
+    "id": "d49",
+    "depth": "deep",
+    "en": "What's the part of your story you've never said?",
+    "fr": "C'est quoi la partie de ton histoire que t'as jamais racontée?"
+  },
+  {
+    "id": "d50",
+    "depth": "deep",
+    "en": "If someone were making a documentary about your life, what scene would you want them to cut?",
+    "fr": "Si quelqu'un faisait un documentaire sur ta vie, quelle scène tu voudrais qu'ils coupent?"
+  },
+  {
+    "id": "d51",
+    "depth": "deep",
+    "en": "How would the person who knows you best describe your biggest flaw?",
+    "fr": "La personne qui te connaît le mieux, elle décrirait comment ton plus gros défaut?"
+  },
+  {
+    "id": "d52",
+    "depth": "deep",
+    "en": "What's the softest thing about you that you've had to harden?",
+    "fr": "C'est quoi la chose la plus douce en toi que t'as dû endurcir?"
+  },
+  {
+    "id": "d53",
+    "depth": "deep",
+    "en": "What do you need that you've stopped letting yourself want?",
+    "fr": "De quoi t'as besoin mais que t'as arrêté de t'autoriser à vouloir?"
+  },
+  {
+    "id": "d54",
+    "depth": "deep",
+    "en": "What would it take for you to feel like enough?",
+    "fr": "Il faudrait quoi pour que tu te sentes suffisant?"
+  },
+  {
+    "id": "d55",
+    "depth": "deep",
+    "en": "What's the meanest thing anyone ever told you?",
+    "fr": "C'est quoi la chose la plus méchante qu'on t'ait jamais dite?"
+  },
+  {
+    "id": "d58",
+    "depth": "deep",
+    "en": "What impossible thing do you secretly believe you could pull off?",
+    "fr": "C'est quoi le truc impossible que tu crois secrètement pouvoir réussir?"
+  },
+  {
+    "id": "d59",
+    "depth": "deep",
+    "en": "What battle did you win that no one saw you fight?",
+    "fr": "Quelle bataille t'as gagnée que personne t'a vu mener?"
+  },
+  {
+    "id": "d60",
+    "depth": "deep",
+    "en": "When did you surprise yourself with your own courage?",
+    "fr": "Quand est-ce que tu t'es surpris par ton propre courage?"
+  },
+  {
+    "id": "d61",
+    "depth": "deep",
+    "en": "What have you done that you've never gotten credit for?",
+    "fr": "Qu'est-ce que t'as fait dont on t'a jamais reconnu le mérite?"
+  },
+  {
+    "id": "d63",
+    "depth": "deep",
+    "en": "Someone you love is about to give up on their dream. What do you tell them to make them stay?",
+    "fr": "Quelqu'un que t'aimes est sur le point d'abandonner son rêve. Tu lui dis quoi pour le faire rester?"
+  },
+  {
+    "id": "d64",
+    "depth": "deep",
+    "en": "What's the kindest thing you've done that you've never told anyone?",
+    "fr": "C'est quoi le truc le plus gentil que t'as fait mais que t'as jamais dit à personne?"
+  },
+  {
+    "id": "d65",
+    "depth": "deep",
+    "en": "You have to give up one talent to double another. What goes, what stays?",
+    "fr": "Tu dois sacrifier un talent pour en doubler un autre. Lequel part, lequel reste?"
+  },
+  {
+    "id": "d66",
+    "depth": "deep",
+    "en": "Your dream job calls, but it means leaving everyone behind for 2 years. Do you go?",
+    "fr": "Le job de tes rêves t'appelle, mais ça veut dire tout quitter pendant 2 ans. Tu pars?"
+  },
+  {
+    "id": "d68",
+    "depth": "deep",
+    "en": "What moment made you realize you were stronger than you thought?",
+    "fr": "C'est quand le moment où t'as réalisé que t'étais plus fort que tu pensais?"
+  },
+  {
+    "id": "m22",
+    "depth": "deep",
+    "en": "Which would you choose: to be unloved or to be misunderstood?",
+    "fr": "Tu préfères quoi, ne pas être aimé ou ne pas être compris?"
+  },
+  {
+    "id": "m27",
+    "depth": "deep",
+    "en": "When you're in pain, who do you call and who do you hide from?",
+    "fr": "Quand t'as mal, t'appelles qui et tu te caches de qui?"
+  },
+  {
+    "id": "m29",
+    "depth": "deep",
+    "en": "Do you chase people who pull away, or pull away from people who chase you?",
+    "fr": "Tu cours après ceux qui s'éloignent, ou tu t'éloignes de ceux qui te courent après?"
+  },
+  {
+    "id": "m30",
+    "depth": "deep",
+    "en": "What's the lie you believed about love the longest?",
+    "fr": "C'est quoi le mensonge sur l'amour auquel t'as cru le plus longtemps?"
+  },
+  {
+    "id": "m31",
+    "depth": "deep",
+    "en": "Do you test people before you trust them? How?",
+    "fr": "Tu testes les gens avant de leur faire confiance? Comment?"
+  },
+  {
+    "id": "m32",
+    "depth": "deep",
+    "en": "What insecurity holds you back the most?",
+    "fr": "Quelle insécurité te freine le plus?"
+  },
+  {
+    "id": "m34",
+    "depth": "deep",
+    "en": "What are you still trying to prove, and to whom?",
+    "fr": "Qu'est-ce que t'essaies encore de prouver, et à qui?"
+  },
+  {
+    "id": "m36",
+    "depth": "deep",
+    "en": "What did the people who raised you teach you about love?",
+    "fr": "Ceux qui t'ont élevé, ils t'ont appris quoi sur l'amour?"
+  },
+  {
+    "id": "m37",
+    "depth": "deep",
+    "en": "What emotion was not allowed in your home growing up?",
+    "fr": "Quelle émotion était interdite chez toi quand t'étais petit?"
+  },
+  {
+    "id": "m38",
+    "depth": "deep",
+    "en": "What role were you assigned in your family, and are you still playing it?",
+    "fr": "C'était quoi ton rôle dans ta famille, et tu le joues encore?"
+  },
+  {
+    "id": "m40",
+    "depth": "deep",
+    "en": "Are you suffering because of what happened, or because of your attachment to how things should be?",
+    "fr": "Tu souffres à cause de ce qui s'est passé, ou à cause de ton attachement à comment les choses auraient dû être?"
+  },
+  {
+    "id": "m42",
+    "depth": "deep",
+    "en": "What's the thing you want most right now that you won't ask for?",
+    "fr": "C'est quoi le truc que tu veux le plus là maintenant mais que tu demanderas pas?"
+  },
+  {
+    "id": "x01",
+    "depth": "deep",
+    "en": "Do you think people truly change, or do they just become better liars?",
+    "fr": "Tu penses que les gens changent vraiment ou qu'ils deviennent de meilleurs menteurs?"
+  },
+  {
+    "id": "x73",
+    "depth": "deep",
+    "en": "You can give one person in your life a breakthrough they've been struggling for. Who and what?",
+    "fr": "Tu peux offrir à une personne dans ta vie le déclic qu'elle cherche depuis longtemps. C'est qui et c'est quoi?"
+  },
+  {
+    "id": "x74",
+    "depth": "deep",
+    "en": "You can make one person finally understand something about you. Who, and what do they finally get?",
+    "fr": "Tu peux faire comprendre une chose à une personne une bonne fois pour toutes. C'est qui, et elle comprend enfin quoi?"
+  },
+  {
+    "id": "x75",
+    "depth": "deep",
+    "en": "You can remove one fear from someone you love. Whose fear, and which one?",
+    "fr": "Tu peux enlever une peur à quelqu'un que t'aimes. La peur de qui, et laquelle?"
+  },
+  {
+    "id": "x76",
+    "depth": "deep",
+    "en": "You can grant one person the confidence they deserve. Who needs it most?",
+    "fr": "Tu peux donner à une personne la confiance qu'elle mérite. C'est qui qui en a le plus besoin?"
+  },
+  {
+    "id": "x77",
+    "depth": "deep",
+    "en": "You can either be remembered for one great thing, or quietly help 100 people who'll never know it was you. Which?",
+    "fr": "Tu préfères qu'on se souvienne de toi pour un truc énorme, ou aider 100 personnes en silence qui sauront jamais que c'était toi?"
+  },
+  {
+    "id": "x02",
+    "depth": "deeper",
+    "en": "When you ask yourself if you're a good person, what's the debate in your head?",
+    "fr": "Quand tu te demandes si t'es quelqu'un de bien, quel est le débat qui a lieu dans ta tête?"
+  },
+  {
+    "id": "x03",
+    "depth": "deeper",
+    "en": "If you could see yourself the way others see you, what would disturb you the most?",
+    "fr": "Si tu pouvais te voir comme les autres te voient, qu'est-ce qui te dérangerait le plus?"
+  },
+  {
+    "id": "x04",
+    "depth": "deeper",
+    "en": "What's the question that will always haunt you?",
+    "fr": "Quelle est la question qui viendra toujours te hanter?"
+  },
+  {
+    "id": "x05",
+    "depth": "deeper",
+    "en": "What part of yourself did you have to give up so the rest could survive?",
+    "fr": "Quelle partie de toi t'es-tu forcé à abandonner, pour que l'autre puisse survivre?"
+  },
+  {
+    "id": "x07",
+    "depth": "deeper",
+    "en": "Which of your masks has become so comfortable you've forgotten it's not your face?",
+    "fr": "Quel masque est devenu si confortable que t'as oublié que c'est pas ton vrai visage?"
+  },
+  {
+    "id": "x10",
+    "depth": "deeper",
+    "en": "What have you always wanted to say, and to whom, without ever having the courage to admit it?",
+    "fr": "Qu'est-ce que tu as toujours voulu dire, à qui, sans jamais avoir osé l'avouer?"
+  },
+  {
+    "id": "x11",
+    "depth": "deeper",
+    "en": "You're dead. Everyone you've ever loved is at your funeral. You get to walk up to 1 person. Who is it, and what do you say?",
+    "fr": "T'es mort. Tous ceux que t'as aimés sont là. Tu peux aller voir 1 seule personne. C'est qui, et tu lui dis quoi?"
+  },
+  {
+    "id": "x12",
+    "depth": "deeper",
+    "en": "What are you convinced of without ever having bothered to verify?",
+    "fr": "De quoi tu es convaincu, sans jamais avoir pris la peine de vérifier?"
+  },
+  {
+    "id": "x13",
+    "depth": "deeper",
+    "en": "What good thing did you sacrifice because it was easier to walk away?",
+    "fr": "Qu'est-ce que tu as sacrifié de bien, parce que c'était plus facile de tout quitter?"
+  },
+  {
+    "id": "x14",
+    "depth": "deeper",
+    "en": "What wrong did you cause that you'll never be able to make right?",
+    "fr": "Quel tort as-tu causé, que tu ne pourras jamais réparer?"
+  },
+  {
+    "id": "x15",
+    "depth": "deeper",
+    "en": "When was the last time you were the villain in someone's story?",
+    "fr": "C'est quand la dernière fois où tu as été le méchant de l'histoire?"
+  },
+  {
+    "id": "x16",
+    "depth": "deeper",
+    "en": "What's the worst thing someone could find out about you that's true?",
+    "fr": "Quelle est la pire chose qu'on pourrait découvrir sur toi et qui est vraie?"
+  },
+  {
+    "id": "x18",
+    "depth": "deeper",
+    "en": "What serious thing did you do that someone knows about but no one has ever brought up?",
+    "fr": "Qu'est-ce que tu as fait de grave, que quelqu'un sait, mais dont personne n'a jamais reparlé?"
+  },
+  {
+    "id": "x20",
+    "depth": "deeper",
+    "en": "What made you cry that you'd never admit out loud?",
+    "fr": "Quel événement t'a fait pleurer, mais que tu n'avoueras jamais?"
+  },
+  {
+    "id": "x21",
+    "depth": "deeper",
+    "en": "What are you grieving that no one knows about?",
+    "fr": "Quel deuil porte tu en silence?"
+  },
+  {
+    "id": "x22",
+    "depth": "deeper",
+    "en": "How long did you wait before telling them it was over?",
+    "fr": "T'as attendu combien de temps avant de lui dire que c'était fini?"
+  },
+  {
+    "id": "x23",
+    "depth": "deeper",
+    "en": "If the people closest to you could hear every thought you've had this week, would they stay?",
+    "fr": "Si tes proches pouvaient entendre toutes tes pensé de la semaine, ils resteraient?"
+  },
+  {
+    "id": "x24",
+    "depth": "deeper",
+    "en": "Who in your life is there purely out of self-interest?",
+    "fr": "Quelle personne fait partie de ta vie, par pur intérêt?"
+  },
+  {
+    "id": "x26",
+    "depth": "deeper",
+    "en": "How much is enough?",
+    "fr": "Combien est suffisant?"
+  },
+  {
+    "id": "x30",
+    "depth": "deeper",
+    "en": "If your 80-year-old self could slap you right now, what would they scream at you for wasting your life on?",
+    "fr": "Si ton toi de 80 ans pouvait te gifler maintenant, qu'est-ce qu'il te hurlerait d'avoir gâché ta vie ?"
+  },
+  {
+    "id": "x31",
+    "depth": "deeper",
+    "en": "Who have you been quietly resenting for years, and why haven't you confronted them — or yourself?",
+    "fr": "Qui est-ce que tu ressens en silence depuis des années, et pourquoi tu ne l'as jamais confronté — ni toi ?"
+  },
+  {
+    "id": "x34",
+    "depth": "deeper",
+    "en": "When was the last time you chose to stay small because becoming big felt too terrifying?",
+    "fr": "C'était quand la dernière fois que t'as choisi de rester petit parce que devenir grand faisait trop peur ?"
+  },
+  {
+    "id": "x36",
+    "depth": "deeper",
+    "en": "If your body could speak, what would it scream at you about how you've treated it?",
+    "fr": "Si ton corps pouvait parler, qu'est-ce qu'il te hurlerait sur la façon dont tu l'as traité ?"
+  },
+  {
+    "id": "x38",
+    "depth": "deeper",
+    "en": "What sacred promise did you make to yourself as a kid that you've broken a thousand times?",
+    "fr": "Quelle promesse sacrée t'avais faite à toi-même enfant que t'as brisée mille fois ?"
+  },
+  {
+    "id": "x40",
+    "depth": "deeper",
+    "en": "What decision are you avoiding right now that would force you to face who you've really become?",
+    "fr": "Quelle décision tu évites en ce moment qui t'obligerait à regarder en face qui tu es vraiment devenu ?"
+  },
+  {
+    "id": "x41",
+    "depth": "deeper",
+    "en": "How many times have you sold out your own values just to feel like you belong somewhere?",
+    "fr": "Combien de fois t'as trahi tes propres valeurs juste pour avoir l'impression d'appartenir quelque part ?"
+  },
+  {
+    "id": "x43",
+    "depth": "deeper",
+    "en": "If your life was a book, what chapter are you desperately hoping no one ever reads?",
+    "fr": "Si ta vie était un livre, quel chapitre t'espères désespérément que personne ne lise jamais ?"
+  },
+  {
+    "id": "x44",
+    "depth": "deeper",
+    "en": "Whose life are you living?",
+    "fr": "C'est la vie de qui que tu vis?"
+  },
+  {
+    "id": "x45",
+    "depth": "deeper",
+    "en": "What part of yourself did you have to kill off to be loved?",
+    "fr": "Quelle partie de toi t'as dû tuer pour être aimé?"
+  },
+  {
+    "id": "x47",
+    "depth": "deeper",
+    "en": "What are you assuming you have time for?",
+    "fr": "Tu assumes avoir le temps pour quoi?"
+  },
+  {
+    "id": "x49",
+    "depth": "deeper",
+    "en": "If your life ended today, would you be at peace with how you loved?",
+    "fr": "Si ta vie se terminait aujourd'hui, tu serais en paix avec comment t'as aimé?"
+  },
+  {
+    "id": "x50",
+    "depth": "deeper",
+    "en": "Who do you love that you haven't told?",
+    "fr": "Qui tu aimes mais à qui tu l'as jamais dit?"
+  },
+  {
+    "id": "x51",
+    "depth": "deeper",
+    "en": "What love have you been holding hostage behind your pride?",
+    "fr": "Quel amour tu gardes en otage derrière ta fierté?"
+  },
+  {
+    "id": "x52",
+    "depth": "deeper",
+    "en": "What do you most need to hear that no one has ever said to you?",
+    "fr": "Qu'est-ce que t'as le plus besoin d'entendre que personne t'a jamais dit?"
+  },
+  {
+    "id": "x54",
+    "depth": "deeper",
+    "en": "What grudge are you carrying that the other person has forgotten?",
+    "fr": "Quelle rancune tu portes que l'autre personne a déjà oubliée?"
+  },
+  {
+    "id": "x58",
+    "depth": "deeper",
+    "en": "What would you never forgive yourself for, and what would it mean to let that go?",
+    "fr": "Tu te pardonnerais jamais quoi, et ça voudrait dire quoi de lâcher ça?"
+  },
+  {
+    "id": "x59",
+    "depth": "deeper",
+    "en": "What are you most afraid to feel?",
+    "fr": "Qu'est-ce que t'as le plus peur de ressentir?"
+  },
+  {
+    "id": "x60",
+    "depth": "deeper",
+    "en": "When was the last time you felt truly seen?",
+    "fr": "C'était quand la dernière fois que tu t'es vraiment senti vu?"
+  },
+  {
+    "id": "x64",
+    "depth": "deeper",
+    "en": "Which parent do you most fear becoming, and in what ways have you already become them?",
+    "fr": "Lequel de tes parents t'as le plus peur de devenir, et en quoi tu l'es déjà devenu?"
+  },
+  {
+    "id": "x65",
+    "depth": "deeper",
+    "en": "What have you made peace with that you should be fighting? What have you been fighting that you should make peace with?",
+    "fr": "Avec quoi t'as fait la paix alors que tu devrais te battre? Contre quoi tu te bats alors que tu devrais faire la paix?"
+  },
+  {
+    "id": "x67",
+    "depth": "deeper",
+    "en": "What does the version of you who no longer cares what people think look like?",
+    "fr": "Elle ressemble à quoi la version de toi qui s'en fout de ce que les gens pensent?"
+  },
+  {
+    "id": "x68",
+    "depth": "deeper",
+    "en": "What have you been waiting your whole life to be asked?",
+    "fr": "Qu'est-ce que t'attends qu'on te demande depuis toujours?"
+  },
+  {
+    "id": "x70",
+    "depth": "deeper",
+    "en": "What would you confess if you knew you were dying tomorrow?",
+    "fr": "Tu confesserais quoi si tu savais que tu mourais demain?"
+  },
+  {
+    "id": "x72",
+    "depth": "deeper",
+    "en": "What dream did you abandon to be practical?",
+    "fr": "Quel rêve t'as laissé tomber pour être pragmatique?"
+  }
+]

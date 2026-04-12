@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>go deeper</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #F5F2ED; --surface: #FDFCFA; --text: #1A1814; --text-muted: #8A877F;
+    --text-light: #C4C1B8; --accent: #2D4A3E; --accent-light: #E8F0EC;
+    --heart: #C0392B; --border: rgba(26,24,20,0.1); --radius: 16px;
+    --stone-empty: rgba(26,24,20,0.15);
+  }
+  .dark {
+    --bg: #1A1814; --surface: #252220; --text: #E8E4DE; --text-muted: #8A877F;
+    --text-light: #5A574F; --accent: #5B9B84; --accent-light: rgba(91,155,132,0.12);
+    --heart: #E05A4F; --border: rgba(255,255,255,0.08);
+    --stone-empty: rgba(255,255,255,0.15);
+  }
+  /* Theme toggle */
+  /* ── GLOBAL TOOLBAR ── */
+  .global-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 1rem 1.5rem; display: flex; align-items: flex-start; justify-content: space-between; pointer-events: none; }
+  .global-bar > * { pointer-events: auto; }
+  .global-left { display: flex; flex-direction: column; gap: 6px; align-items: center; }
+  .global-right { display: flex; flex-direction: column; gap: 6px; align-items: center; position: relative; }
+  .global-btn { background: none; border: none; cursor: pointer; padding: 4px; display: flex; align-items: center; justify-content: center; opacity: 0.6; transition: opacity 0.2s; color: var(--text); }
+  .global-btn:hover { opacity: 1; }
+  .global-btn svg { width: 20px; height: 20px; stroke: var(--text); display: block; }
+  .global-btn .theme-icon { width: 20px; height: 20px; display: block; }
+  .stop-btn { width: 32px; height: 32px; border-radius: 50%; background: var(--surface); border: 1.5px solid var(--border); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+  .stop-btn:hover { border-color: var(--text-muted); }
+  .stop-btn .stop-icon { width: 11px; height: 11px; background: var(--text-muted); border-radius: 2px; }
+  .lang-trigger { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 6px 10px; font-size: 18px; cursor: pointer; display: flex; align-items: center; gap: 5px; }
+  .lang-chevron { font-size: 9px; color: var(--text-muted); transition: transform 0.2s; }
+  .lang-trigger.open .lang-chevron { transform: rotate(180deg); }
+  .lang-menu { position: absolute; right: 0; top: calc(100% + 6px); background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; display: none; min-width: 80px; z-index: 200; }
+  .lang-menu.visible { display: block; }
+  .lang-option { padding: 8px 12px; font-size: 16px; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+  .lang-option:hover { background: var(--bg); }
+  .lang-label { font-size: 12px; color: var(--text-muted); }
+
+  body { background: var(--bg); font-family: 'DM Sans', sans-serif; min-height: 100vh; overflow-x: hidden; }
+  .screen { display: none; min-height: 100vh; flex-direction: column; }
+  .screen.active { display: flex; }
+
+  /* ── HOME ── */
+  .home-screen { padding: 3.5rem 2rem 2.5rem; justify-content: center; align-items: center; position: relative; gap: 2.5rem; }
+  .home-title-wrap { text-align: center; }
+  .app-title { font-family: 'DM Serif Display', serif; font-size: 52px; color: var(--text); letter-spacing: -1.5px; line-height: 1; }
+  .app-title em { font-style: italic; color: var(--accent); }
+  .app-sub { font-size: 14px; color: var(--text-muted); font-weight: 300; margin-top: 10px; line-height: 1.5; }
+
+  .how-it-works { width: 100%; max-width: 360px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; display: flex; flex-direction: column; gap: 12px; }
+  .how-row { display: flex; align-items: flex-start; gap: 12px; }
+  .how-icon { flex-shrink: 0; width: 20px; height: 19.5px; display: flex; align-items: center; justify-content: center; }
+  .how-icon-text { font-size: 14px; color: var(--text-muted); }
+  /* Mini stones for home */
+  .how-stones-row { display: flex; gap: 4px; align-items: center; }
+  .how-mini-stone { width: 11px; height: 11px; border-radius: 50%; border: 1.5px solid var(--text-muted); margin-top: 1px; }
+  /* Mini heart SVG for home */
+  .how-heart-svg { width: 14px; height: 14px; }
+  .how-heart-path { fill: none; stroke: var(--text-muted); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  /* Mini stop */
+  .how-stop { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--text-muted); display: flex; align-items: center; justify-content: center; }
+  .how-stop-inner { width: 5px; height: 5px; background: var(--text-muted); border-radius: 1px; }
+
+  .how-text { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+  .how-text strong { color: var(--text); font-weight: 500; }
+
+  .start-btn { width: 100%; max-width: 360px; padding: 18px; background: var(--accent); color: #fff; border: none; border-radius: 14px; font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 500; cursor: pointer; transition: opacity 0.2s; }
+  .start-btn:hover { opacity: 0.88; }
+
+  /* ── SESSION ── */
+  .session-screen { padding: 3.5rem 0 0; position: relative; overflow: hidden; }
+
+  /* Card area — carousel container */
+  .card-area { flex: 1; display: flex; align-items: center; justify-content: center; padding: 0.5rem 0; position: relative; }
+  .card-wrapper { width: 100%; max-width: 520px; position: relative; overflow: clip; padding: 0 1rem; }
+  .carousel { display: flex; width: 300%; position: relative; transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); transform: translateX(-33.3333%); }
+  .carousel.swiping { transition: none; }
+  .carousel-slot { width: 33.3333%; flex-shrink: 0; padding: 0 1.5rem; }
+
+  .q-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 1.75rem 1.75rem 1rem; width: 100%; position: relative;
+    user-select: none; display: flex; flex-direction: column; justify-content: center;
+    height: 260px;
+  }
+  .q-text { font-family: 'DM Serif Display', serif; font-size: 24px; line-height: 1.38; color: var(--text); letter-spacing: -0.3px; text-align: left; flex: 1; display: flex; align-items: center; overflow-y: auto; }
+  .card-bottom { width: 100%; margin-top: 1rem; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
+  .card-bottom-row { display: flex; align-items: center; justify-content: space-between; width: 100%; height: 30px; }
+
+  /* ── STONES on card ── */
+  .stones-row { display: flex; align-items: center; gap: 6px; }
+  .stone { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; border: 1.5px solid var(--stone-empty); background: transparent; position: relative; overflow: hidden; transition: border-color 0.3s; cursor: pointer; }
+  .stone .stone-fill { position: absolute; inset: 0; border-radius: 50%; opacity: 0; transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); transform: scale(0); }
+  .stone.filled .stone-fill { opacity: 1; transform: scale(1); }
+  .stone.filled { border-color: transparent; }
+  .stone-fill.fill-1 { background: radial-gradient(circle at 35% 30%, #E8DCC6, #D4C5A9 50%, #B8A882); box-shadow: inset -2px -2px 4px rgba(0,0,0,0.15), inset 1px 1px 3px rgba(255,255,255,0.5); }
+  .stone-fill.fill-2 { background: radial-gradient(circle at 35% 30%, #A8A598, #8A877F 50%, #6B685F); box-shadow: inset -2px -2px 4px rgba(0,0,0,0.2), inset 1px 1px 3px rgba(255,255,255,0.3); }
+  .stone-fill.fill-3 { background: radial-gradient(circle at 35% 30%, #4A7A68, #2D4A3E 50%, #1A2E26); box-shadow: inset -2px -2px 4px rgba(0,0,0,0.25), inset 1px 1px 3px rgba(255,255,255,0.2); }
+  .depth-label { font-size: 10px; color: var(--text-muted); font-family: 'DM Sans', sans-serif; letter-spacing: 0.03em; line-height: 14px; }
+
+  /* ── HEART on card ── */
+  .heart-btn { background: none; border: none; cursor: pointer; padding: 4px; display: flex; align-items: center; z-index: 2; }
+  .heart-btn svg { width: 22px; height: 22px; display: block; }
+  .heart-path { fill: none; stroke: var(--text-light); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: fill 0.25s, stroke 0.25s; }
+  .heart-btn.liked .heart-path { fill: var(--heart); stroke: var(--heart); }
+  .heart-btn.liked svg { animation: heartpop 0.28s ease forwards; }
+  @keyframes heartpop { 0%{transform:scale(1)} 45%{transform:scale(1.5)} 75%{transform:scale(0.88)} 100%{transform:scale(1)} }
+  .loved-text { font-size: 10px; color: var(--heart); font-family: 'DM Sans', sans-serif; opacity: 0; transition: opacity 0.25s; line-height: 14px; text-align: right; }
+  .loved-text.visible { opacity: 1; }
+
+  /* ── ACTIONS ── */
+  .actions-area { padding: 0.5rem 1.5rem 0; max-width: 520px; margin: 0 auto; width: 100%; display: flex; flex-direction: column; gap: 8px; }
+  .actions-row { display: flex; gap: 10px; }
+  .action-btn { flex: 1; padding: 14px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); font-family: 'DM Sans', sans-serif; font-size: 14px; cursor: pointer; font-weight: 500; transition: all 0.15s; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 6px; }
+  .action-btn:hover { border-color: var(--text-muted); color: var(--text); }
+  .btn-deeper-action { width: 100%; padding: 14px; border-radius: 12px; border: 1px solid var(--accent); background: var(--accent); font-family: 'DM Sans', sans-serif; font-size: 14px; cursor: pointer; font-weight: 500; color: #fff; transition: opacity 0.15s; }
+  .btn-deeper-action:hover { opacity: 0.88; }
+  .swipe-hint-text { text-align: center; font-size: 11px; color: var(--text-light); padding: 0.75rem 0 1.25rem; }
+
+  /* ── GO DEEPER PROMPT ── */
+  .prompt-stones { display: inline-flex; gap: 3px; align-items: center; vertical-align: middle; margin: 0 2px; }
+  .prompt-stone { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .prompt-stone.empty { border: 1.5px solid var(--stone-empty); background: transparent; }
+  .prompt-stone.ps-1 { background: radial-gradient(circle at 35% 30%, #E8DCC6, #D4C5A9 50%, #B8A882); box-shadow: inset -1.5px -1.5px 3px rgba(0,0,0,0.15), inset 0.5px 0.5px 2px rgba(255,255,255,0.5); }
+  .prompt-stone.ps-2 { background: radial-gradient(circle at 35% 30%, #A8A598, #8A877F 50%, #6B685F); box-shadow: inset -1.5px -1.5px 3px rgba(0,0,0,0.2), inset 0.5px 0.5px 2px rgba(255,255,255,0.3); }
+  .prompt-stone.ps-3 { background: radial-gradient(circle at 35% 30%, #4A7A68, #2D4A3E 50%, #1A2E26); box-shadow: inset -1.5px -1.5px 3px rgba(0,0,0,0.25), inset 0.5px 0.5px 2px rgba(255,255,255,0.2); }
+  .deeper-prompt-overlay {
+    position: absolute; inset: 0; background: color-mix(in srgb, var(--bg) 92%, transparent);
+    display: none; align-items: center; justify-content: center; z-index: 100;
+    backdrop-filter: blur(4px);
+  }
+  .deeper-prompt-overlay.visible { display: flex; }
+  .deeper-prompt {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 2rem 1.75rem; text-align: center; max-width: 400px; width: calc(100% - 3rem);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  }
+  .deeper-prompt-sub { font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.8; }
+  .deeper-prompt-sub strong { color: var(--text); font-weight: 500; }
+  .deeper-prompt-btns { display: flex; gap: 10px; }
+  .deeper-prompt-btn { flex: 1; padding: 14px; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.15s; }
+  .deeper-prompt-yes { background: var(--accent); border: 1px solid var(--accent); color: #fff; }
+  .deeper-prompt-yes:hover { opacity: 0.88; }
+  .deeper-prompt-no { background: none; border: 1px solid var(--text-muted); color: var(--text-muted); }
+  .deeper-prompt-no:hover { border-color: var(--text); color: var(--text); }
+
+  /* ── REVIEW ── */
+  .review-screen { padding: 3.5rem 0 0; overflow-y: auto; min-height: 100vh; display: flex; flex-direction: column; }
+  .continue-btn { font-size: 12px; font-weight: 500; color: var(--accent); background: var(--accent-light); border: 1px solid rgba(45,74,62,0.2); cursor: pointer; padding: 6px 14px; border-radius: 8px; font-family: 'DM Sans', sans-serif; white-space: nowrap; }
+  .continue-btn:hover { opacity: 0.85; }
+  .review-hero { text-align: center; padding: 0.5rem 1.5rem 0; }
+  .review-title { font-family: 'DM Serif Display', serif; font-size: 32px; color: var(--text); letter-spacing: -0.5px; }
+  .review-stats { font-size: 13px; color: var(--text-muted); margin-top: 6px; }
+  .review-stats strong { color: var(--text); font-weight: 500; }
+  /* Filters */
+  .review-filters { display: flex; gap: 6px; padding: 1.25rem 1.5rem 0.75rem; flex-wrap: wrap; }
+  .filter-pill { padding: 5px 12px; border-radius: 20px; border: 1px solid var(--border); background: var(--surface); font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; color: var(--text-muted); cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 5px; }
+  .filter-pill:hover { border-color: var(--text-muted); color: var(--text); }
+  .filter-pill.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .filter-pill.active-heart { background: var(--heart); border-color: var(--heart); color: #fff; }
+  .filter-pill .pill-stone { width: 6px; height: 6px; border-radius: 50%; }
+  .filter-pill .pill-stone.ps-e { border: 1px solid var(--text-light); }
+  .filter-pill.active .pill-stone.ps-e { border-color: rgba(255,255,255,0.5); }
+  .filter-pill .pill-stone.ps-f { background: currentColor; }
+  /* Question list */
+  .review-list { padding: 0 1.5rem; flex: 1; }
+  .review-depth-group { margin-bottom: 1rem; }
+  .review-depth-label { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .review-q { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 11px 14px; font-size: 14px; color: var(--text); line-height: 1.5; margin-bottom: 6px; display: flex; align-items: flex-start; gap: 8px; }
+  .review-q-text { flex: 1; }
+  .review-q .review-heart-btn { background: none; border: none; cursor: pointer; padding: 2px; flex-shrink: 0; margin-top: 1px; }
+  .review-q .review-heart-btn svg { width: 18px; height: 18px; display: block; }
+  .review-q .review-heart-btn .rh-path { fill: none; stroke: var(--text-light); stroke-width: 1.8; transition: fill 0.2s, stroke 0.2s; }
+  .review-q .review-heart-btn.liked .rh-path { fill: var(--heart); stroke: var(--heart); }
+  .review-bottom-pad { height: 2rem; }
+  .empty-state { font-size: 13px; color: var(--text-light); font-style: italic; padding: 8px 0; }
+</style>
+</head>
+<body>
+
+<!-- GLOBAL TOOLBAR -->
+<div class="global-bar" id="global-bar">
+  <div class="global-left">
+    <button class="global-btn" onclick="goHome()" title="Home" id="btn-home">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/>
+        <path d="M9 21V12h6v9"/>
+      </svg>
+    </button>
+    <button class="global-btn" onclick="toggleTheme()" id="theme-toggle">
+    </button>
+  </div>
+  <div class="global-right">
+    <div style="position:relative;">
+      <div class="lang-trigger" id="lang-trigger" onclick="toggleLang(event)">
+        <span id="lang-flag">🇬🇧</span>
+        <span class="lang-chevron">▾</span>
+      </div>
+      <div class="lang-menu" id="lang-menu">
+        <div class="lang-option" onclick="setLang('en')">🇬🇧 <span class="lang-label">English</span></div>
+        <div class="lang-option" onclick="setLang('fr')">🇫🇷 <span class="lang-label">Français</span></div>
+      </div>
+    </div>
+    <button class="stop-btn" onclick="endSession()" title="End session" id="btn-stop" style="display:none;">
+      <div class="stop-icon"></div>
+    </button>
+    <button class="continue-btn" onclick="continueSession()" data-i18n="continue_session" id="btn-continue" style="display:none;">Continue</button>
+  </div>
+</div>
+
+<!-- HOME -->
+<div class="screen home-screen active" id="screen-home">
+  <div class="home-title-wrap">
+    <div class="app-title">go <em>deeper</em></div>
+    <div class="app-sub" data-i18n="tagline">questions to spark conversations that matter</div>
+  </div>
+  <div class="how-it-works">
+    <div class="how-row">
+      <div class="how-icon"><span class="how-icon-text">⇌</span></div>
+      <span class="how-text" data-i18n="how_swipe"><strong>Swipe</strong> through questions at your current depth level</span>
+    </div>
+    <div class="how-row">
+      <div class="how-icon">
+        <div class="how-stones-row">
+          <div class="how-mini-stone"></div>
+        </div>
+      </div>
+      <span class="how-text" data-i18n="how_stones"><strong>Tap the stones</strong> to choose how deep you want to go</span>
+    </div>
+    <div class="how-row">
+      <div class="how-icon">
+        <svg class="how-heart-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path class="how-heart-path" d="M12 21s-9-6.5-9-12.5C3 5.42 5.42 3 8.5 3c1.74 0 3.41.81 4.5 2.08C14.09 3.81 15.76 3 17.5 3 20.58 3 23 5.42 23 8.5 23 14.5 12 21 12 21z"/>
+        </svg>
+      </div>
+      <span class="how-text" data-i18n="how_heart"><strong>Like a question</strong> that sparked a good conversation</span>
+    </div>
+    <div class="how-row">
+      <div class="how-icon">
+        <div class="how-stop"><div class="how-stop-inner"></div></div>
+      </div>
+      <span class="how-text" data-i18n="how_end"><strong>Stop</strong> at any time, your session is saved</span>
+    </div>
+  </div>
+  <button class="start-btn" onclick="startSession()" data-i18n="start">Start</button>
+</div>
+
+<!-- SESSION -->
+<div class="screen session-screen" id="screen-session">
+  <div class="card-area">
+    <div class="card-wrapper">
+      <div class="carousel" id="carousel">
+        <div class="carousel-slot" id="slot-prev">
+          <div class="q-card">
+            <div class="q-text" id="q-text-prev"></div>
+            <div class="card-bottom">
+              <div class="card-bottom-row">
+                <div class="stones-row">
+                  <div class="stone" id="stone-prev-1"><div class="stone-fill fill-1"></div></div>
+                  <div class="stone" id="stone-prev-2"><div class="stone-fill fill-2"></div></div>
+                  <div class="stone" id="stone-prev-3"><div class="stone-fill fill-3"></div></div>
+                </div>
+                <div class="heart-btn" style="pointer-events:none">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path class="heart-path" d="M12 21s-9-6.5-9-12.5C3 5.42 5.42 3 8.5 3c1.74 0 3.41.81 4.5 2.08C14.09 3.81 15.76 3 17.5 3 20.58 3 23 5.42 23 8.5 23 14.5 12 21 12 21z"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="card-bottom-row">
+                <div class="depth-label" id="depth-label-prev"></div>
+                <span class="loved-text"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-slot" id="slot-current">
+          <div class="q-card" id="q-card-main">
+            <div class="q-text" id="q-text"></div>
+            <div class="card-bottom">
+              <div class="card-bottom-row">
+                <div class="stones-row">
+                  <div class="stone" id="stone-1" onclick="clickStone(1)"><div class="stone-fill fill-1"></div></div>
+                  <div class="stone" id="stone-2" onclick="clickStone(2)"><div class="stone-fill fill-2"></div></div>
+                  <div class="stone" id="stone-3" onclick="clickStone(3)"><div class="stone-fill fill-3"></div></div>
+                </div>
+                <button class="heart-btn" id="heart-btn" onclick="toggleHeart(event)">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path class="heart-path" d="M12 21s-9-6.5-9-12.5C3 5.42 5.42 3 8.5 3c1.74 0 3.41.81 4.5 2.08C14.09 3.81 15.76 3 17.5 3 20.58 3 23 5.42 23 8.5 23 14.5 12 21 12 21z"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="card-bottom-row">
+                <div class="depth-label" id="depth-label">Light</div>
+                <span class="loved-text" id="loved-text" data-i18n="loved_it">loved it</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-slot" id="slot-next">
+          <div class="q-card">
+            <div class="q-text" id="q-text-next"></div>
+            <div class="card-bottom">
+              <div class="card-bottom-row">
+                <div class="stones-row">
+                  <div class="stone" id="stone-next-1"><div class="stone-fill fill-1"></div></div>
+                  <div class="stone" id="stone-next-2"><div class="stone-fill fill-2"></div></div>
+                  <div class="stone" id="stone-next-3"><div class="stone-fill fill-3"></div></div>
+                </div>
+                <div class="heart-btn" style="pointer-events:none">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path class="heart-path" d="M12 21s-9-6.5-9-12.5C3 5.42 5.42 3 8.5 3c1.74 0 3.41.81 4.5 2.08C14.09 3.81 15.76 3 17.5 3 20.58 3 23 5.42 23 8.5 23 14.5 12 21 12 21z"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="card-bottom-row">
+                <div class="depth-label" id="depth-label-next"></div>
+                <span class="loved-text"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions-area">
+    <div class="actions-row">
+      <button class="action-btn" onclick="goPrev()"><span>←</span> <span data-i18n="prev">Previous</span></button>
+      <button class="action-btn" onclick="goNext()"><span data-i18n="next">Next</span> <span>→</span></button>
+    </div>
+    <button class="btn-deeper-action" id="btn-deeper" onclick="goDeeper()" data-i18n="deeper">Go deeper</button>
+  </div>
+  <div class="swipe-hint-text" data-i18n="swipe_hint">swipe to browse · tap go deeper to increase depth</div>
+
+  <!-- Go deeper prompt -->
+  <div class="deeper-prompt-overlay" id="deeper-prompt">
+    <div class="deeper-prompt">
+      <div class="deeper-prompt-sub" id="deeper-prompt-sub"></div>
+      <div class="deeper-prompt-btns">
+        <button class="deeper-prompt-btn deeper-prompt-no" onclick="promptNo()" data-i18n="prompt_no">End session</button>
+        <button class="deeper-prompt-btn deeper-prompt-yes" onclick="promptYes()" data-i18n="deeper">Go deeper</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEW -->
+<div class="screen review-screen" id="screen-review">
+  <div class="review-hero">
+    <div class="review-title" data-i18n="session_done">Session done</div>
+    <div class="review-stats" id="review-stats"></div>
+  </div>
+  <div class="review-filters" id="review-filters"></div>
+  <div class="review-list" id="review-list"></div>
+  <div class="review-bottom-pad"></div>
+</div>
+
+<script>
+const STRINGS = {
+  en: {
+    tagline: "questions to spark conversations that matter",
+    how_swipe: "<strong>Swipe</strong> through questions at your current depth level",
+    how_stones: "<strong>Tap the stones</strong> to choose how deep you want to go",
+    how_heart: "<strong>Like a question</strong> that sparked a good conversation",
+    how_end: "<strong>Stop</strong> at any time, your session is saved",
+    start: "Start", prev: "Previous", next: "Next", deeper: "Go deeper",
+    swipe_hint: "swipe to browse · tap go deeper to increase depth",
+    depth_light: "Light", depth_medium: "Medium", depth_deep: "Deep", depth_deeper: "Deeper",
+    session_done: "Session done", loved_it: "loved it",
+    stat_seen: "seen", stat_loved: "loved",
+    filter_all: "All",
+    stat_answered: "answered", stat_loved: "loved", stat_skipped: "skipped",
+    label_loved: "Questions you loved", label_answered: "Answered",
+    new_session: "New session", continue_session: "Continue", back_home: "Back to home",
+    questions_seen: "questions", none: "None", hint_prev: "Previous", hint_next: "Next",
+    prompt_title: "Go deeper?", prompt_yes: "Let's go", prompt_no: "End session",
+    prompt_sub_medium: "You've explored all the <strong>light</strong> questions.<br><br>Ready for <strong>medium</strong> <span class='prompt-stones'><span class='prompt-stone ps-1'></span><span class='prompt-stone empty'></span><span class='prompt-stone empty'></span></span>?",
+    prompt_sub_deep: "You've explored all the <strong>medium</strong> questions.<br><br>Ready for <strong>deep</strong> <span class='prompt-stones'><span class='prompt-stone ps-1'></span><span class='prompt-stone ps-2'></span><span class='prompt-stone empty'></span></span>?",
+    prompt_sub_deeper: "You've explored all the <strong>deep</strong> questions.<br><br>Ready for <strong>deeper</strong> <span class='prompt-stones'><span class='prompt-stone ps-1'></span><span class='prompt-stone ps-2'></span><span class='prompt-stone ps-3'></span></span>?",
+    prompt_sub_end: "You've explored every single question. That was intense."
+  },
+  fr: {
+    tagline: "des questions pour des conversations qui comptent vraiment",
+    how_swipe: "<strong>Glisse</strong> pour passer d'une question à l'autre",
+    how_stones: "<strong>Appuie sur les pierres</strong> pour choisir jusqu'où tu veux aller",
+    how_heart: "<strong>Like une question</strong> qui a lancé une bonne conversation",
+    how_end: "<strong>Arrête</strong> quand tu veux, ta session est sauvegardée",
+    start: "Commencer", prev: "Précédent", next: "Suivant", deeper: "Aller plus loin",
+    swipe_hint: "glisse pour naviguer · appuie sur aller plus loin pour monter d'un cran",
+    depth_light: "Léger", depth_medium: "Moyen", depth_deep: "Profond", depth_deeper: "Abyssal",
+    session_done: "Session terminée", loved_it: "j'adore",
+    stat_seen: "vues", stat_loved: "aimées",
+    filter_all: "Toutes",
+    stat_answered: "répondues", stat_loved: "aimées", stat_skipped: "passées",
+    label_loved: "Les questions que t'as aimées", label_answered: "Répondues",
+    new_session: "Nouvelle session", continue_session: "Continuer", back_home: "Retour",
+    questions_seen: "questions", none: "Aucune", hint_prev: "Précédent", hint_next: "Suivant",
+    prompt_title: "On va plus loin?", prompt_yes: "On y va", prompt_no: "Terminer la session",
+    prompt_sub_medium: "T'as fait le tour des questions <strong>légères</strong>.<br><br>Prêt pour le niveau <strong>moyen</strong> <span class='prompt-stones'><span class='prompt-stone ps-1'></span><span class='prompt-stone empty'></span><span class='prompt-stone empty'></span></span>?",
+    prompt_sub_deep: "T'as fait le tour des questions <strong>moyennes</strong>.<br><br>Prêt pour le niveau <strong>profond</strong> <span class='prompt-stones'><span class='prompt-stone ps-1'></span><span class='prompt-stone ps-2'></span><span class='prompt-stone empty'></span></span>?",
+    prompt_sub_deeper: "T'as fait le tour des questions <strong>profondes</strong>.<br><br>Prêt pour le niveau <strong>abyssal</strong> <span class='prompt-stones'><span class='prompt-stone ps-1'></span><span class='prompt-stone ps-2'></span><span class='prompt-stone ps-3'></span></span>?",
+    prompt_sub_end: "T'as fait le tour de toutes les questions. C'était intense."
+  }
+};
+
+const ALL_QUESTIONS = [
+  // ── LIGHT (16) ──
+  {id:"l01",en:"If you had to actually live inside a TV show, which one and why?",fr:"Si tu devais vivre dans une série, ce serait laquelle et pourquoi?",depth:"light"},
+  {id:"l02",en:"If you got arrested for no reason, what would your friends assume you did?",fr:"Si tu te faisais arrêter sans raison, tes potes penseraient que t'as fait quoi?",depth:"light"},
+  {id:"l04",en:"What do you do alone that you'd never do in public or in front of someone?",fr:"Qu'est-ce que tu fais seul mais que tu ferais jamais en public ou devant quelqu'un?",depth:"light"},
+  {id:"l05",en:"When do you do your best thinking, and where are you usually?",fr:"Tu réfléchis le mieux quand et t'es où en général?",depth:"light"},
+  {id:"l06",en:"What's the last thing that made you laugh until it hurt?",fr:"Le dernier truc qui t'a fait pleurer de rire?",depth:"light"},
+  {id:"l07",en:"What's your hidden talent that surprises people?",fr:"Quel est ton talent caché qui surprend les gens?",depth:"light"},
+  {id:"l08",en:"What's something you're weirdly competitive about?",fr:"Sur quoi t'es bizarrement compétitif?",depth:"light"},
+  {id:"l09",en:"If everyone here had to survive on an island together, what role would you claim?",fr:"Si on devait tous survivre sur une île, tu prendrais quel rôle?",depth:"light"},
+  {id:"l10",en:"What's something you've been quietly obsessed with lately?",fr:"Quelle est ton obsession du moment que personne ne sait?",depth:"light"},
+  {id:"l11",en:"What's a small thing that makes your day noticeably better?",fr:"Quel petit truc change ta journée?",depth:"light"},
+  {id:"l12",en:"What's a hill you will absolutely die on that doesn't matter at all?",fr:"Sur quel sujet tu lâcheras jamais alors que ça sert à rien?",depth:"light"},
+  {id:"l13",en:"What's the worst advice you've ever received with a straight face?",fr:"Quel est le pire conseil qu'on t'a donné sérieusement?",depth:"light"},
+  {id:"l16",en:"If your life had a trailer, what would the voiceover say?",fr:"Si ta vie avait une bande-annonce, la voix off dirait quoi?",depth:"light"},
+  {id:"l18",en:"What's something you own that has value to no one but you?",fr:"Quel est l'objet que tu possèdes, qui n'a de la valeur pour personne d'autre que toi?",depth:"light"},
+  {id:"l19",en:"Would you like to be famous? In what way?",fr:"Tu voudrais être célèbre? De quelle manière?",depth:"light"},
+  {id:"l20",en:"If you could wake up tomorrow having gained one quality or ability, what would it be?",fr:"Si tu pouvais te réveiller demain avec une nouvelle qualité ou capacité, ce serait quoi?",depth:"light"},
+  // ── MEDIUM (37) ──
+  {id:"d01",en:"When have you felt the most alive?",fr:"À quel moment tu t'es senti le plus vivant?",depth:"medium"},
+  {id:"d02",en:"What brings out the best version of you?",fr:"Qu'est-ce qui fait ressortir la meilleure version de toi-même?",depth:"medium"},
+  {id:"d56",en:"You're given unlimited resources and 5 years. What do you build?",fr:"On te donne des ressources illimitées et 5 ans. Tu construis quoi?",depth:"medium"},
+  {id:"d57",en:"A kid asks you to teach them the one thing you do better than anyone. What is it?",fr:"Un gamin te demande de lui apprendre le truc que tu fais mieux que personne. C'est quoi?",depth:"medium"},
+  {id:"d62",en:"You're the world's dictator for a day. Everything you say goes. What's your first decision?",fr:"T'es dictateur du monde pour une journée. Tout ce que tu dis est exécuté. C'est quoi ta première décision?",depth:"medium"},
+  {id:"d67",en:"You arrive at Burning Man. For 24 hours, no one knows you and no one will remember anything. How do you show up?",fr:"T'arrives au Burning Man. Pendant 24h, personne te connaît et personne se souviendra de rien. Tu te montres comment?",depth:"medium"},
+  {id:"l17",en:"What's a compliment you got once that you still think about?",fr:"Quel compliment tu as reçu et auquel tu penses encore?",depth:"medium"},
+  {id:"l21",en:"For what in your life do you feel most grateful?",fr:"Pour quoi dans ta vie tu te sens le plus reconnaissant?",depth:"medium"},
+  {id:"l22",en:"What do you crave more of?",fr:"De quoi t'as envie d'avoir plus?",depth:"medium"},
+  {id:"l23",en:"If a miracle happened tonight and your biggest problem was solved, how would you know tomorrow?",fr:"Si un miracle se produisait cette nuit et que ton plus gros problème était résolu, comment tu le saurais demain?",depth:"medium"},
+  {id:"l26",en:"What recurring dream do you have?",fr:"C'est quoi ton rêve récurrent?",depth:"medium"},
+  {id:"m01",en:"What's something you like about yourself that almost no one knows?",fr:"Qu'est-ce que tu aimes chez toi que quasiment personne ne connaît?",depth:"medium"},
+  {id:"m02",en:"Is there a memory from your childhood that kind of made you who you are?",fr:"Quel souvenir d'enfance t'a un peu construit?",depth:"medium"},
+  {id:"m03",en:"What do you keep putting off, and what's really stopping you?",fr:"Qu'est-ce que tu repousses depuis longtemps, et qu'est-ce qui te bloque?",depth:"medium"},
+  {id:"m04",en:"What conviction did you hold that you've completely changed your mind on?",fr:"Quelle est la conviction que tu avais, sur laquelle tu as complètement changé d'avis?",depth:"medium"},
+  {id:"m05",en:"What's the best advice anyone ever gave you?",fr:"Quel est le meilleur conseil qu'on t'ait jamais donné?",depth:"medium"},
+  {id:"m06",en:"If the next 5 years were a chapter in your life, what would it be called?",fr:"Si les 5 prochaines années étaient un chapitre de ta vie, il s'appellerait comment?",depth:"medium"},
+  {id:"m07",en:"Who changed the way you see the world, and how?",fr:"Quelle personne a changé ta façon de voir les choses, et comment?",depth:"medium"},
+  {id:"m08",en:"Is there something a stranger once said to you that you still think about?",fr:"Est-ce qu'il y a une phrase prononcé par un inconnu, à laquelle tu penses encore?",depth:"medium"},
+  {id:"m09",en:"What do people tend to get wrong about you?",fr:"Sur quoi les gens se trompent souvent, lorsqu'ils te rencontrent pour la premiere fois?",depth:"medium"},
+  {id:"m10",en:"When do you actually feel like yourself?",fr:"Quand est-ce que tu te sens vraiment toi-même?",depth:"medium"},
+  {id:"m11",en:"What did your parents actually get right?",fr:"Tes parents ont eu raison sur quoi?",depth:"medium"},
+  {id:"m12",en:"What did someone teach you simply by being themselves?",fr:"Qu'est-ce qu'une personne t'a appris, en étant simplement elle-même?",depth:"medium"},
+  {id:"m13",en:"Is there a rule everyone follows that you find questionable?",fr:"Est-ce qu'il y a une règle que tout le monde suit mais que tu trouves discutable?",depth:"medium"},
+  {id:"m14",en:"What's the story your family tells every time you're together?",fr:"C'est quoi l histoire de famille que vous racontez toujours lorsque vous etes enesemble?",depth:"medium"},
+  {id:"m15",en:"What's the kindest thing someone did for you that they've probably forgotten?",fr:"C'est quoi la chose la plus sympa que quelqu'un ai faite pour toi, et qu'elle a a probabelment deja oublie?",depth:"medium"},
+  {id:"m16",en:"What question do you wish people asked you more often?",fr:"Quelle que tu aimerais qu on te demande plus souvent?",depth:"medium"},
+  {id:"m17",en:"What do you find beautiful that most people miss or ignore?",fr:"Qu'est-ce que tu trouves de beau, que la plupart des gens negligent?",depth:"medium"},
+  {id:"m18",en:"If we ran into each other 1 year from now, what would we be celebrating?",fr:"Si on se croise dans 1 an, on fête quoi?",depth:"medium"},
+  {id:"m19",en:"What did your teenage room look like? Describe it.",fr:"A quoi ressemblait ta chambre d'ado?",depth:"medium"},
+  {id:"m20",en:"What was the best year of your life?",fr:"Quelle a été la meilleure année de ta vie?",depth:"medium"},
+  {id:"m21",en:"What habit do you always hide on a first date?",fr:"Quelle manie tu tentes toujours de cacher lors d'un premier date?",depth:"medium"},
+  {id:"m23",en:"What did you learn about money that you wish someone had taught you earlier?",fr:"Qu'est-ce que tu as appris sur l'argent que tu aurais aimé qu'on t'enseigne plus tôt?",depth:"medium"},
+  {id:"m26",en:"Do you feel like a different person depending on what language you're speaking?",fr:"Tu te sens différent selon la langue dans laquelle tu parles?",depth:"medium"},
+  {id:"m35",en:"What lesson took you the longest to unlearn?",fr:"Quelle leçon t'a pris le plus de temps à désapprendre?",depth:"medium"},
+  {id:"m41",en:"What opinion do you hold that you've never truly questioned?",fr:"Quelle opinion tu as jamais vraiment remise en question?",depth:"medium"},
+  {id:"m43",en:"World leaders have gathered and they call you to fix one thing. What is it?",fr:"Les dirigeants du monde se sont réunis et ils t'appellent pour régler un truc. C'est quoi?",depth:"medium"},
+  // ── DEEP (72) ──
+  {id:"d03",en:"What did you stop fighting in yourself?",fr:"Contre quoi t'as arrêté de te battre?",depth:"deep"},
+  {id:"d04",en:"When did you realize your parents didn't know everything and were doing the best they could?",fr:"Quand est-ce que t'as réalisé que tes parents ne savaient pas tout, et faisaient du mieux qu'ils pouvaient?",depth:"deep"},
+  {id:"d05",en:"What would a life you're proud of actually look like?",fr:"À quoi ressemblerait une vie dont tu serais fier?",depth:"deep"},
+  {id:"d07",en:"When things get hard with someone you love, what do you need but never express?",fr:"Quand ça devient compliqué avec quelqu'un que t'aimes, de quoi tu as besoin, que tu n'exprimes jamais?",depth:"deep"},
+  {id:"d09",en:"What's the thing you most wish you could go back and do differently?",fr:"Si tu pouvais revenir en arrière et changer une chose, ce serait quoi?",depth:"deep"},
+  {id:"d11",en:"What would your 9-year-old self think about who you've become?",fr:"Le toi de 9 ans, il penserait quoi de qui t'es devenu?",depth:"deep"},
+  {id:"d12",en:"Who in your life would be the hardest to lose, and why?",fr:"Quelle personne dans ta vie serait la plus dure à perdre, et pourquoi?",depth:"deep"},
+  {id:"d13",en:"What's the single decision that shaped your life the most?",fr:"Quelle est la décision qui a le plus changé ta vie?",depth:"deep"},
+  {id:"d14",en:"If you had 1 year left to live, what would you change?",fr:"S'il te restait 1 an à vivre, qu'est-ce que tu changerais?",depth:"deep"},
+  {id:"d15",en:"What part of yourself do you guard the most, and why?",fr:"Quelle partie de toi tu protèges le plus, et pourquoi?",depth:"deep"},
+  {id:"d16",en:"What version of yourself are you slowly becoming?",fr:"Vers quelle version de toi te diriges tu, doucement?",depth:"deep"},
+  {id:"d17",en:"What are you ready to leave behind to move forward?",fr:"Qu'est-ce que tu es prêt à laisser derrière toi pour avancer?",depth:"deep"},
+  {id:"d18",en:"What have you forgiven but never actually forgotten?",fr:"Qu'est-ce que tu as pardonné, sans jamais vraiment avoir oublié?",depth:"deep"},
+  {id:"d19",en:"What's the hardest truth you've had to accept?",fr:"Quelle est la vérité la plus dure que tu as dû accepter?",depth:"deep"},
+  {id:"d20",en:"What has fear already cost you?",fr:"Qu'est-ce que la peur t'a déjà coûté?",depth:"deep"},
+  {id:"d21",en:"Who do you become when you're around the wrong people?",fr:"Tu deviens qui quand t'es avec les mauvaises personnes?",depth:"deep"},
+  {id:"d22",en:"What conversation keeps playing on loop in your head?",fr:"Quelle est la conversation qui tourne en boucle dans ta tête?",depth:"deep"},
+  {id:"d23",en:"What did you blame on someone else when you were the one responsible?",fr:"Qu'est-ce que tu as mis sur le dos de quelqu'un, alors que tu en étais responsable?",depth:"deep"},
+  {id:"d24",en:"What promise did you break that still weighs on you?",fr:"Quelle est la promesse que tu n'as pas tenue, et qui te pèse encore?",depth:"deep"},
+  {id:"d26",en:"When have you felt the most alone in your life?",fr:"À quel moment tu t'es senti le plus seul dans ta vie?",depth:"deep"},
+  {id:"d27",en:"Have you ever been jealous of someone you were supposed to be happy for?",fr:"T'as déjà été jaloux de quelqu'un pour qui t'étais censé être content?",depth:"deep"},
+  {id:"d28",en:"What have you done for money that you'd never do for free?",fr:"Qu'est-ce que tu as déjà fait pour de l'argent, que tu n'aurais jamais fait gratuitement?",depth:"deep"},
+  {id:"d29",en:"What part of aging are you not ready to accept?",fr:"Quel est l'aspect de la vieillesse aue tu as ou aura du mal a accepter?",depth:"deep"},
+  {id:"d30",en:"What did you inherit from your parents that you wish you hadn't?",fr:"Qu'est-ce que tu as hérité de tes parents, que tu aurais préféré ne pas avoir?",depth:"deep"},
+  {id:"d31",en:"What do you keep going back to even though you know it hurts you?",fr:"Vers quoi tu te retournes toujours alors que tu sais que ça te fait du mal?",depth:"deep"},
+  {id:"d32",en:"When do you feel the most vulnerable?",fr:"Quand est-ce que tu te sens le plus vulnérable?",depth:"deep"},
+  {id:"d33",en:"What trait do you most hate in others? Where does it exist in you?",fr:"C'est quoi le trait que tu détestes le plus chez les autres? Il existe où en toi?",depth:"deep"},
+  {id:"d34",en:"Who would you be if you weren't trying so hard to be good?",fr:"Tu serais qui si t'essayais pas si fort d'être quelqu'un de bien?",depth:"deep"},
+  {id:"d35",en:"What recurring pattern in your life might be your shadow calling out to you?",fr:"Quel schéma récurrent dans ta vie pourrait être ton ombre qui t'appelle?",depth:"deep"},
+  {id:"d36",en:"What are you pretending you have no choice about?",fr:"Sur quoi tu fais semblant d'avoir pas le choix?",depth:"deep"},
+  {id:"d37",en:"What decision are you avoiding right now, and what does that avoidance cost you?",fr:"Quelle décision t'évites en ce moment, et ça te coûte quoi de l'éviter?",depth:"deep"},
+  {id:"d38",en:"Which of your 'I can't' statements are actually 'I won't' statements in disguise?",fr:"Lesquels de tes 'je peux pas' sont en fait des 'je veux pas' déguisés?",depth:"deep"},
+  {id:"d39",en:"Is there anything you want that, once obtained, won't just be replaced by wanting something else?",fr:"Y a-t-il quelque chose que tu veux qui, une fois obtenu, sera pas juste remplacé par une autre envie?",depth:"deep"},
+  {id:"d41",en:"What are you punishing yourself for that you would forgive in anyone else?",fr:"Pour quoi tu te punis que tu pardonnerais à n'importe qui d'autre?",depth:"deep"},
+  {id:"d43",en:"When did you first learn to be ashamed?",fr:"C'était quand la première fois que t'as appris à avoir honte?",depth:"deep"},
+  {id:"d45",en:"What keeps you from feeling safe, even when you are safe?",fr:"Qu'est-ce qui t'empêche de te sentir en sécurité, même quand tu l'es?",depth:"deep"},
+  {id:"d46",en:"Who do you usually talk to inside your head?",fr:"À qui tu parles d'habitude dans ta tête?",depth:"deep"},
+  {id:"d47",en:"What would your family say is wrong with you, and when did you start believing them?",fr:"Ta famille dirait quoi qui va pas chez toi, et t'as commencé à les croire quand?",depth:"deep"},
+  {id:"d49",en:"What's the part of your story you've never said?",fr:"C'est quoi la partie de ton histoire que t'as jamais racontée?",depth:"deep"},
+  {id:"d50",en:"If someone were making a documentary about your life, what scene would you want them to cut?",fr:"Si quelqu'un faisait un documentaire sur ta vie, quelle scène tu voudrais qu'ils coupent?",depth:"deep"},
+  {id:"d51",en:"How would the person who knows you best describe your biggest flaw?",fr:"La personne qui te connaît le mieux, elle décrirait comment ton plus gros défaut?",depth:"deep"},
+  {id:"d52",en:"What's the softest thing about you that you've had to harden?",fr:"C'est quoi la chose la plus douce en toi que t'as dû endurcir?",depth:"deep"},
+  {id:"d53",en:"What do you need that you've stopped letting yourself want?",fr:"De quoi t'as besoin mais que t'as arrêté de t'autoriser à vouloir?",depth:"deep"},
+  {id:"d54",en:"What would it take for you to feel like enough?",fr:"Il faudrait quoi pour que tu te sentes suffisant?",depth:"deep"},
+  {id:"d55",en:"What's the meanest thing anyone ever told you?",fr:"C'est quoi la chose la plus méchante qu'on t'ait jamais dite?",depth:"deep"},
+  {id:"d58",en:"What impossible thing do you secretly believe you could pull off?",fr:"C'est quoi le truc impossible que tu crois secrètement pouvoir réussir?",depth:"deep"},
+  {id:"d59",en:"What battle did you win that no one saw you fight?",fr:"Quelle bataille t'as gagnée que personne t'a vu mener?",depth:"deep"},
+  {id:"d60",en:"When did you surprise yourself with your own courage?",fr:"Quand est-ce que tu t'es surpris par ton propre courage?",depth:"deep"},
+  {id:"d61",en:"What have you done that you've never gotten credit for?",fr:"Qu'est-ce que t'as fait dont on t'a jamais reconnu le mérite?",depth:"deep"},
+  {id:"d63",en:"Someone you love is about to give up on their dream. What do you tell them to make them stay?",fr:"Quelqu'un que t'aimes est sur le point d'abandonner son rêve. Tu lui dis quoi pour le faire rester?",depth:"deep"},
+  {id:"d64",en:"What's the kindest thing you've done that you've never told anyone?",fr:"C'est quoi le truc le plus gentil que t'as fait mais que t'as jamais dit à personne?",depth:"deep"},
+  {id:"d65",en:"You have to give up one talent to double another. What goes, what stays?",fr:"Tu dois sacrifier un talent pour en doubler un autre. Lequel part, lequel reste?",depth:"deep"},
+  {id:"d66",en:"Your dream job calls, but it means leaving everyone behind for 2 years. Do you go?",fr:"Le job de tes rêves t'appelle, mais ça veut dire tout quitter pendant 2 ans. Tu pars?",depth:"deep"},
+  {id:"d68",en:"What moment made you realize you were stronger than you thought?",fr:"C'est quand le moment où t'as réalisé que t'étais plus fort que tu pensais?",depth:"deep"},
+  {id:"m22",en:"Which would you choose: to be unloved or to be misunderstood?",fr:"Tu préfères quoi, ne pas être aimé ou ne pas être compris?",depth:"deep"},
+  {id:"m27",en:"When you're in pain, who do you call and who do you hide from?",fr:"Quand t'as mal, t'appelles qui et tu te caches de qui?",depth:"deep"},
+  {id:"m29",en:"Do you chase people who pull away, or pull away from people who chase you?",fr:"Tu cours après ceux qui s'éloignent, ou tu t'éloignes de ceux qui te courent après?",depth:"deep"},
+  {id:"m30",en:"What's the lie you believed about love the longest?",fr:"C'est quoi le mensonge sur l'amour auquel t'as cru le plus longtemps?",depth:"deep"},
+  {id:"m31",en:"Do you test people before you trust them? How?",fr:"Tu testes les gens avant de leur faire confiance? Comment?",depth:"deep"},
+  {id:"m32",en:"What insecurity holds you back the most?",fr:"Quelle insécurité te freine le plus?",depth:"deep"},
+  {id:"m34",en:"What are you still trying to prove, and to whom?",fr:"Qu'est-ce que t'essaies encore de prouver, et à qui?",depth:"deep"},
+  {id:"m36",en:"What did the people who raised you teach you about love?",fr:"Ceux qui t'ont élevé, ils t'ont appris quoi sur l'amour?",depth:"deep"},
+  {id:"m37",en:"What emotion was not allowed in your home growing up?",fr:"Quelle émotion était interdite chez toi quand t'étais petit?",depth:"deep"},
+  {id:"m38",en:"What role were you assigned in your family, and are you still playing it?",fr:"C'était quoi ton rôle dans ta famille, et tu le joues encore?",depth:"deep"},
+  {id:"m40",en:"Are you suffering because of what happened, or because of your attachment to how things should be?",fr:"Tu souffres à cause de ce qui s'est passé, ou à cause de ton attachement à comment les choses auraient dû être?",depth:"deep"},
+  {id:"m42",en:"What's the thing you want most right now that you won't ask for?",fr:"C'est quoi le truc que tu veux le plus là maintenant mais que tu demanderas pas?",depth:"deep"},
+  {id:"x01",en:"Do you think people truly change, or do they just become better liars?",fr:"Tu penses que les gens changent vraiment ou qu'ils deviennent de meilleurs menteurs?",depth:"deep"},
+  {id:"x73",en:"You can give one person in your life a breakthrough they've been struggling for. Who and what?",fr:"Tu peux offrir à une personne dans ta vie le déclic qu'elle cherche depuis longtemps. C'est qui et c'est quoi?",depth:"deep"},
+  {id:"x74",en:"You can make one person finally understand something about you. Who, and what do they finally get?",fr:"Tu peux faire comprendre une chose à une personne une bonne fois pour toutes. C'est qui, et elle comprend enfin quoi?",depth:"deep"},
+  {id:"x75",en:"You can remove one fear from someone you love. Whose fear, and which one?",fr:"Tu peux enlever une peur à quelqu'un que t'aimes. La peur de qui, et laquelle?",depth:"deep"},
+  {id:"x76",en:"You can grant one person the confidence they deserve. Who needs it most?",fr:"Tu peux donner à une personne la confiance qu'elle mérite. C'est qui qui en a le plus besoin?",depth:"deep"},
+  {id:"x77",en:"You can either be remembered for one great thing, or quietly help 100 people who'll never know it was you. Which?",fr:"Tu préfères qu'on se souvienne de toi pour un truc énorme, ou aider 100 personnes en silence qui sauront jamais que c'était toi?",depth:"deep"},
+  // ── DEEPER (44) ──
+  {id:"x02",en:"When you ask yourself if you're a good person, what's the debate in your head?",fr:"Quand tu te demandes si t'es quelqu'un de bien, quel est le débat qui a lieu dans ta tête?",depth:"deeper"},
+  {id:"x03",en:"If you could see yourself the way others see you, what would disturb you the most?",fr:"Si tu pouvais te voir comme les autres te voient, qu'est-ce qui te dérangerait le plus?",depth:"deeper"},
+  {id:"x04",en:"What's the question that will always haunt you?",fr:"Quelle est la question qui viendra toujours te hanter?",depth:"deeper"},
+  {id:"x05",en:"What part of yourself did you have to give up so the rest could survive?",fr:"Quelle partie de toi t'es-tu forcé à abandonner, pour que l'autre puisse survivre?",depth:"deeper"},
+  {id:"x07",en:"Which of your masks has become so comfortable you've forgotten it's not your face?",fr:"Quel masque est devenu si confortable que t'as oublié que c'est pas ton vrai visage?",depth:"deeper"},
+  {id:"x10",en:"What have you always wanted to say, and to whom, without ever having the courage to admit it?",fr:"Qu'est-ce que tu as toujours voulu dire, à qui, sans jamais avoir osé l'avouer?",depth:"deeper"},
+  {id:"x11",en:"You're dead. Everyone you've ever loved is at your funeral. You get to walk up to 1 person. Who is it, and what do you say?",fr:"T'es mort. Tous ceux que t'as aimés sont là. Tu peux aller voir 1 seule personne. C'est qui, et tu lui dis quoi?",depth:"deeper"},
+  {id:"x12",en:"What are you convinced of without ever having bothered to verify?",fr:"De quoi tu es convaincu, sans jamais avoir pris la peine de vérifier?",depth:"deeper"},
+  {id:"x13",en:"What good thing did you sacrifice because it was easier to walk away?",fr:"Qu'est-ce que tu as sacrifié de bien, parce que c'était plus facile de tout quitter?",depth:"deeper"},
+  {id:"x14",en:"What wrong did you cause that you'll never be able to make right?",fr:"Quel tort as-tu causé, que tu ne pourras jamais réparer?",depth:"deeper"},
+  {id:"x15",en:"When was the last time you were the villain in someone's story?",fr:"C'est quand la dernière fois où tu as été le méchant de l'histoire?",depth:"deeper"},
+  {id:"x16",en:"What's the worst thing someone could find out about you that's true?",fr:"Quelle est la pire chose qu'on pourrait découvrir sur toi et qui est vraie?",depth:"deeper"},
+  {id:"x18",en:"What serious thing did you do that someone knows about but no one has ever brought up?",fr:"Qu'est-ce que tu as fait de grave, que quelqu'un sait, mais dont personne n'a jamais reparlé?",depth:"deeper"},
+  {id:"x20",en:"What made you cry that you'd never admit out loud?",fr:"Quel événement t'a fait pleurer, mais que tu n'avoueras jamais?",depth:"deeper"},
+  {id:"x21",en:"What are you grieving that no one knows about?",fr:"Quel deuil porte tu en silence?",depth:"deeper"},
+  {id:"x22",en:"How long did you wait before telling them it was over?",fr:"T'as attendu combien de temps avant de lui dire que c'était fini?",depth:"deeper"},
+  {id:"x23",en:"If the people closest to you could hear every thought you've had this week, would they stay?",fr:"Si tes proches pouvaient entendre toutes tes pensé de la semaine, ils resteraient?",depth:"deeper"},
+  {id:"x24",en:"Who in your life is there purely out of self-interest?",fr:"Quelle personne fait partie de ta vie, par pur intérêt?",depth:"deeper"},
+  {id:"x26",en:"How much is enough?",fr:"Combien est suffisant?",depth:"deeper"},
+  {id:"x30",en:"If your 80-year-old self could slap you right now, what would they scream at you for wasting your life on?",fr:"Si ton toi de 80 ans pouvait te gifler maintenant, qu'est-ce qu'il te hurlerait d'avoir gâché ta vie ?",depth:"deeper"},
+  {id:"x31",en:"Who have you been quietly resenting for years, and why haven't you confronted them — or yourself?",fr:"Qui est-ce que tu ressens en silence depuis des années, et pourquoi tu ne l'as jamais confronté — ni toi ?",depth:"deeper"},
+  {id:"x34",en:"When was the last time you chose to stay small because becoming big felt too terrifying?",fr:"C'était quand la dernière fois que t'as choisi de rester petit parce que devenir grand faisait trop peur ?",depth:"deeper"},
+  {id:"x36",en:"If your body could speak, what would it scream at you about how you've treated it?",fr:"Si ton corps pouvait parler, qu'est-ce qu'il te hurlerait sur la façon dont tu l'as traité ?",depth:"deeper"},
+  {id:"x38",en:"What sacred promise did you make to yourself as a kid that you've broken a thousand times?",fr:"Quelle promesse sacrée t'avais faite à toi-même enfant que t'as brisée mille fois ?",depth:"deeper"},
+  {id:"x40",en:"What decision are you avoiding right now that would force you to face who you've really become?",fr:"Quelle décision tu évites en ce moment qui t'obligerait à regarder en face qui tu es vraiment devenu ?",depth:"deeper"},
+  {id:"x41",en:"How many times have you sold out your own values just to feel like you belong somewhere?",fr:"Combien de fois t'as trahi tes propres valeurs juste pour avoir l'impression d'appartenir quelque part ?",depth:"deeper"},
+  {id:"x43",en:"If your life was a book, what chapter are you desperately hoping no one ever reads?",fr:"Si ta vie était un livre, quel chapitre t'espères désespérément que personne ne lise jamais ?",depth:"deeper"},
+  {id:"x44",en:"Whose life are you living?",fr:"C'est la vie de qui que tu vis?",depth:"deeper"},
+  {id:"x45",en:"What part of yourself did you have to kill off to be loved?",fr:"Quelle partie de toi t'as dû tuer pour être aimé?",depth:"deeper"},
+  {id:"x47",en:"What are you assuming you have time for?",fr:"Tu assumes avoir le temps pour quoi?",depth:"deeper"},
+  {id:"x49",en:"If your life ended today, would you be at peace with how you loved?",fr:"Si ta vie se terminait aujourd'hui, tu serais en paix avec comment t'as aimé?",depth:"deeper"},
+  {id:"x50",en:"Who do you love that you haven't told?",fr:"Qui tu aimes mais à qui tu l'as jamais dit?",depth:"deeper"},
+  {id:"x51",en:"What love have you been holding hostage behind your pride?",fr:"Quel amour tu gardes en otage derrière ta fierté?",depth:"deeper"},
+  {id:"x52",en:"What do you most need to hear that no one has ever said to you?",fr:"Qu'est-ce que t'as le plus besoin d'entendre que personne t'a jamais dit?",depth:"deeper"},
+  {id:"x54",en:"What grudge are you carrying that the other person has forgotten?",fr:"Quelle rancune tu portes que l'autre personne a déjà oubliée?",depth:"deeper"},
+  {id:"x58",en:"What would you never forgive yourself for, and what would it mean to let that go?",fr:"Tu te pardonnerais jamais quoi, et ça voudrait dire quoi de lâcher ça?",depth:"deeper"},
+  {id:"x59",en:"What are you most afraid to feel?",fr:"Qu'est-ce que t'as le plus peur de ressentir?",depth:"deeper"},
+  {id:"x60",en:"When was the last time you felt truly seen?",fr:"C'était quand la dernière fois que tu t'es vraiment senti vu?",depth:"deeper"},
+  {id:"x64",en:"Which parent do you most fear becoming, and in what ways have you already become them?",fr:"Lequel de tes parents t'as le plus peur de devenir, et en quoi tu l'es déjà devenu?",depth:"deeper"},
+  {id:"x65",en:"What have you made peace with that you should be fighting? What have you been fighting that you should make peace with?",fr:"Avec quoi t'as fait la paix alors que tu devrais te battre? Contre quoi tu te bats alors que tu devrais faire la paix?",depth:"deeper"},
+  {id:"x67",en:"What does the version of you who no longer cares what people think look like?",fr:"Elle ressemble à quoi la version de toi qui s'en fout de ce que les gens pensent?",depth:"deeper"},
+  {id:"x68",en:"What have you been waiting your whole life to be asked?",fr:"Qu'est-ce que t'attends qu'on te demande depuis toujours?",depth:"deeper"},
+  {id:"x70",en:"What would you confess if you knew you were dying tomorrow?",fr:"Tu confesserais quoi si tu savais que tu mourais demain?",depth:"deeper"},
+  {id:"x72",en:"What dream did you abandon to be practical?",fr:"Quel rêve t'as laissé tomber pour être pragmatique?",depth:"deeper"},
+];
+
+const DEPTHS = ['light','medium','deep','deeper'];
+const DEPTH_LABELS = {light:'depth_light',medium:'depth_medium',deep:'depth_deep',deeper:'depth_deeper'};
+
+let lang='en', currentDepth='light';
+let depthQueues={}, depthIndex={};
+let seenIds=new Set(), likedSet=new Set(), answeredIds=new Set();
+let navHistory=[], swipeReady=false, currentLiked=false;
+
+function t(k){return(STRINGS[lang]&&STRINGS[lang][k])||STRINGS.en[k]||k;}
+
+function toggleLang(e){
+  if(e) e.stopPropagation();
+  const m=document.getElementById('lang-menu'),tr=document.getElementById('lang-trigger');
+  const show = !m.classList.contains('visible');
+  m.classList.toggle('visible', show);
+  tr.classList.toggle('open', show);
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.lang-trigger')&&!e.target.closest('.lang-menu')){
+    document.getElementById('lang-menu').classList.remove('visible');
+    document.getElementById('lang-trigger').classList.remove('open');
+  }
+});
+function setLang(l){
+  lang=l;document.getElementById('lang-flag').textContent=l==='en'?'🇬🇧':'🇫🇷';
+  document.getElementById('lang-menu').classList.remove('visible');
+  document.getElementById('lang-trigger').classList.remove('open');
+  applyStrings();updateAllSlots();
+}
+function applyStrings(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>el.innerHTML=t(el.getAttribute('data-i18n')));
+}
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+
+function getQ(depth,idx){const q=depthQueues[depth];return(q&&idx>=0&&idx<q.length)?q[idx]:null;}
+function getCurrentQuestion(){return getQ(currentDepth,depthIndex[currentDepth]);}
+
+function startSession(){
+  likedSet=new Set();answeredIds=new Set();seenIds=new Set();navHistory=[];currentDepth='light';
+  DEPTHS.forEach(d=>{depthQueues[d]=shuffle(ALL_QUESTIONS.filter(q=>q.depth===d));depthIndex[d]=0;});
+  showScreen('session');applyStrings();
+  resetCarousel();updateStones();updateDepthLabel();updateHeartUI();
+  if(!swipeReady){initSwipe();swipeReady=true;}
+}
+
+// ── CAROUSEL ──
+function resetCarousel(){
+  const car=document.getElementById('carousel');
+  car.classList.remove('swiping');
+  car.style.transform='translateX(-33.3333%)';
+  updateAllSlots();
+}
+function updateAllSlots(){
+  const cur=getCurrentQuestion();
+  document.getElementById('q-text').textContent=cur?cur[lang]:'';
+  if(cur)seenIds.add(cur.id);
+  // Prev slot
+  let prevDepth='light';
+  if(navHistory.length>0){
+    const p=navHistory[navHistory.length-1];
+    const pq=getQ(p.depth,p.index);
+    document.getElementById('q-text-prev').textContent=pq?pq[lang]:'';
+    prevDepth=p.depth;
+  } else {document.getElementById('q-text-prev').textContent='';}
+  updateSideStones('prev',prevDepth);
+  // Next slot
+  const nq=getQ(currentDepth,depthIndex[currentDepth]+1);
+  document.getElementById('q-text-next').textContent=nq?nq[lang]:'';
+  updateSideStones('next',currentDepth);
+  // Heart
+  currentLiked=cur?likedSet.has(cur.id):false;
+  updateHeartUI();
+  updateLovedText();
+}
+
+function updateSideStones(side,depth){
+  const level=DEPTHS.indexOf(depth);
+  const s1=document.getElementById('stone-'+side+'-1');
+  const s2=document.getElementById('stone-'+side+'-2');
+  const s3=document.getElementById('stone-'+side+'-3');
+  [s1,s2,s3].forEach(s=>s.classList.remove('filled'));
+  if(level>=1)s1.classList.add('filled');
+  if(level>=2)s2.classList.add('filled');
+  if(level>=3)s3.classList.add('filled');
+  document.getElementById('depth-label-'+side).textContent=t(DEPTH_LABELS[depth]);
+}
+
+function animateCarousel(direction,cb){
+  const car=document.getElementById('carousel');
+  car.classList.remove('swiping');
+  // direction: 'left' = next, 'right' = prev
+  const target=direction==='left'?'-66.6666%':'0%';
+  car.style.transition='transform 0.35s cubic-bezier(0.4,0,0.2,1)';
+  car.style.transform='translateX('+target+')';
+  setTimeout(()=>{
+    car.style.transition='none';
+    cb();
+    car.style.transform='translateX(-33.3333%)';
+    updateAllSlots();updateStones();updateDepthLabel();
+  },360);
+}
+
+function goNext(){
+  const cur=getCurrentQuestion();
+  if(!cur)return;
+  const nq=getQ(currentDepth,depthIndex[currentDepth]+1);
+  if(!nq){
+    // No more questions at this depth
+    answeredIds.add(cur.id);
+    showDeeperPrompt();
+    return;
+  }
+  answeredIds.add(cur.id);
+  navHistory.push({depth:currentDepth,index:depthIndex[currentDepth]});
+  animateCarousel('left',()=>{depthIndex[currentDepth]++;});
+}
+
+function showDeeperPrompt(){
+  const ci=DEPTHS.indexOf(currentDepth);
+  const overlay=document.getElementById('deeper-prompt');
+  const sub=document.getElementById('deeper-prompt-sub');
+  const yesBtn=overlay.querySelector('.deeper-prompt-yes');
+  const noBtn=overlay.querySelector('.deeper-prompt-no');
+
+  if(ci<DEPTHS.length-1){
+    const nextDepthKey='prompt_sub_'+DEPTHS[ci+1];
+    sub.innerHTML=t(nextDepthKey);
+    yesBtn.style.display='';
+    yesBtn.textContent=t('deeper');
+    noBtn.textContent=t('prompt_no');
+  } else {
+    sub.innerHTML=t('prompt_sub_end');
+    yesBtn.style.display='none';
+    noBtn.textContent=t('prompt_no');
+  }
+  overlay.classList.add('visible');
+}
+
+function promptYes(){
+  document.getElementById('deeper-prompt').classList.remove('visible');
+  const ci=DEPTHS.indexOf(currentDepth);
+  if(ci<DEPTHS.length-1){
+    navHistory.push({depth:currentDepth,index:depthIndex[currentDepth]});
+    currentDepth=DEPTHS[ci+1];
+    resetCarousel();updateStones();updateDepthLabel();
+  }
+}
+
+function promptNo(){
+  document.getElementById('deeper-prompt').classList.remove('visible');
+  endSession();
+}
+
+function goPrev(){
+  if(!navHistory.length)return;
+  const p=navHistory.pop();
+  animateCarousel('right',()=>{currentDepth=p.depth;depthIndex[currentDepth]=p.index;});
+}
+
+function goDeeper(){
+  const ci=DEPTHS.indexOf(currentDepth);
+  if(ci<DEPTHS.length-1){
+    const cur=getCurrentQuestion();if(cur)answeredIds.add(cur.id);
+    navHistory.push({depth:currentDepth,index:depthIndex[currentDepth]});
+    const nextDepth=DEPTHS[ci+1];
+    // Prep next slot with the deeper question
+    const dq=getQ(nextDepth,depthIndex[nextDepth]);
+    document.getElementById('q-text-next').textContent=dq?dq[lang]:'';
+    animateCarousel('left',()=>{currentDepth=nextDepth;});
+  } else {goNext();}
+}
+
+// ── STONES ──
+function clickStone(n){
+  // stone 1 = medium, stone 2 = deep, stone 3 = deeper
+  // clicking the same level that's active = go back to one level below
+  const level=DEPTHS.indexOf(currentDepth);
+  const targetLevel=n; // stone 1->1(medium), stone 2->2(deep), stone 3->3(deeper)
+  if(targetLevel===level){
+    // Deselect: go one level down
+    currentDepth=DEPTHS[Math.max(0,level-1)];
+  } else {
+    currentDepth=DEPTHS[targetLevel];
+  }
+  updateStones();updateDepthLabel();updateAllSlots();
+}
+
+function updateStones(){
+  const s1=document.getElementById('stone-1'),s2=document.getElementById('stone-2'),s3=document.getElementById('stone-3');
+  [s1,s2,s3].forEach(s=>s.classList.remove('filled'));
+  const level=DEPTHS.indexOf(currentDepth);
+  if(level>=1)s1.classList.add('filled');
+  if(level>=2)s2.classList.add('filled');
+  if(level>=3)s3.classList.add('filled');
+  const btn=document.getElementById('btn-deeper');
+  if(btn) btn.style.display = level>=DEPTHS.length-1 ? 'none' : '';
+}
+
+function updateDepthLabel(){
+  document.getElementById('depth-label').textContent=t(DEPTH_LABELS[currentDepth]);
+}
+
+// ── HEART ──
+function toggleHeart(e){
+  e.stopPropagation();const q=getCurrentQuestion();if(!q)return;
+  currentLiked=!currentLiked;
+  if(currentLiked)likedSet.add(q.id);else likedSet.delete(q.id);
+  updateHeartUI();updateLovedText();
+}
+function updateHeartUI(){
+  const b=document.getElementById('heart-btn');
+  b.classList.remove('liked');void b.offsetWidth;
+  if(currentLiked)b.classList.add('liked');
+}
+function updateLovedText(){
+  document.getElementById('loved-text').classList.toggle('visible',currentLiked);
+}
+
+// ── SWIPE ──
+function initSwipe(){
+  const car=document.getElementById('carousel');
+  let startX=0,startY=0,isDragging=false,moved=false,dx=0;
+  function onStart(x,y){startX=x;startY=y;isDragging=true;moved=false;dx=0;car.classList.add('swiping');car.style.transition='none';}
+  function onMove(x,y){
+    if(!isDragging)return;
+    const ddx=x-startX,dy=y-startY;
+    if(!moved&&Math.abs(dy)>Math.abs(ddx)+8){isDragging=false;car.classList.remove('swiping');car.style.transform='translateX(-33.3333%)';return;}
+    moved=true;dx=ddx;
+    const base=-33.3333;
+    const pct=base+(dx/car.parentElement.offsetWidth)*0.6*100;
+    car.style.transform='translateX('+pct+'%)';
+  }
+  function onEnd(){
+    if(!isDragging)return;isDragging=false;car.classList.remove('swiping');
+    if(dx<-90){goNext();}
+    else if(dx>90){goPrev();}
+    else{car.style.transition='transform 0.25s ease';car.style.transform='translateX(-33.3333%)';}
+  }
+  const main=document.getElementById('q-card-main');
+  main.addEventListener('mousedown',e=>{if(!e.target.closest('.heart-btn')&&!e.target.closest('.stones-row')&&!e.target.closest('.stone'))onStart(e.clientX,e.clientY);});
+  window.addEventListener('mousemove',e=>{if(isDragging)onMove(e.clientX,e.clientY);});
+  window.addEventListener('mouseup',()=>onEnd());
+  main.addEventListener('touchstart',e=>{if(!e.target.closest('.heart-btn')&&!e.target.closest('.stones-row')&&!e.target.closest('.stone')){const t=e.touches[0];onStart(t.clientX,t.clientY);}},{passive:true});
+  main.addEventListener('touchmove',e=>{const t=e.touches[0];onMove(t.clientX,t.clientY);},{passive:true});
+  main.addEventListener('touchend',()=>onEnd());
+}
+
+// ── SESSION END ──
+let reviewFilter = 'all';
+
+function endSession(){
+  applyStrings();
+  buildReviewStats();
+  buildReviewFilters();
+  renderReviewList();
+  showScreen('review');
+}
+
+function buildReviewStats(){
+  const seen = ALL_QUESTIONS.filter(q=>seenIds.has(q.id));
+  const loved = ALL_QUESTIONS.filter(q=>likedSet.has(q.id));
+  const total = ALL_QUESTIONS.length;
+  document.getElementById('review-stats').innerHTML =
+    '<strong>'+seen.length+'</strong>/'+total+' '+t('stat_seen')+' · <strong>'+loved.length+'</strong> '+t('stat_loved');
+}
+
+function buildReviewFilters(){
+  reviewFilter = 'all';
+  const container = document.getElementById('review-filters');
+  const filters = [
+    {key:'all', label:t('filter_all')},
+    {key:'light', label:t('depth_light'), stones:[0,0,0]},
+    {key:'medium', label:t('depth_medium'), stones:[1,0,0]},
+    {key:'deep', label:t('depth_deep'), stones:[1,1,0]},
+    {key:'deeper', label:t('depth_deeper'), stones:[1,1,1]},
+    {key:'loved', label:'♥'}
+  ];
+  container.innerHTML = filters.map(f=>{
+    let stones = '';
+    if(f.stones){
+      const cls = ['ps-1','ps-2','ps-3'];
+      stones = f.stones.map((filled,i)=>
+        '<span class="pill-stone '+(filled?'ps-f':'ps-e')+'"></span>'
+      ).join('');
+      stones = ' '+stones;
+    }
+    const activeClass = f.key==='all'?'active':(f.key==='loved'?'':'');
+    return '<button class="filter-pill '+activeClass+'" data-filter="'+f.key+'" onclick="setReviewFilter(\''+f.key+'\')">'+f.label+stones+'</button>';
+  }).join('');
+}
+
+function setReviewFilter(key){
+  reviewFilter = key;
+  document.querySelectorAll('.filter-pill').forEach(p=>{
+    p.classList.remove('active','active-heart');
+    if(p.dataset.filter===key){
+      p.classList.add(key==='loved'?'active-heart':'active');
+    }
+  });
+  renderReviewList();
+}
+
+function renderReviewList(){
+  const container = document.getElementById('review-list');
+  const seen = ALL_QUESTIONS.filter(q=>seenIds.has(q.id));
+
+  let filtered;
+  if(reviewFilter==='all') filtered = seen;
+  else if(reviewFilter==='loved') filtered = seen.filter(q=>likedSet.has(q.id));
+  else filtered = seen.filter(q=>q.depth===reviewFilter);
+
+  if(!filtered.length){
+    container.innerHTML='<div class="empty-state">'+t('none')+'</div>';
+    return;
+  }
+
+  if(reviewFilter==='all'||reviewFilter==='loved'){
+    // Group by depth
+    let html='';
+    DEPTHS.forEach(d=>{
+      const group = filtered.filter(q=>q.depth===d);
+      if(!group.length) return;
+      html+='<div class="review-depth-group">';
+      html+='<div class="review-depth-label">'+t(DEPTH_LABELS[d])+' '+depthStonesHTML(d)+'</div>';
+      html+=group.map(q=>reviewCardHTML(q)).join('');
+      html+='</div>';
+    });
+    container.innerHTML=html;
+  } else {
+    container.innerHTML=filtered.map(q=>reviewCardHTML(q)).join('');
+  }
+}
+
+function depthStonesHTML(d){
+  const level = DEPTHS.indexOf(d);
+  const cls = ['ps-1','ps-2','ps-3'];
+  let s = '<span class="prompt-stones">';
+  for(let i=0;i<3;i++){
+    s += '<span class="prompt-stone '+(i<level?cls[i]:'empty')+'"></span>';
+  }
+  s += '</span>';
+  return s;
+}
+
+function reviewCardHTML(q){
+  const liked = likedSet.has(q.id);
+  return '<div class="review-q"><span class="review-q-text">'+q[lang]+'</span>'+
+    '<button class="review-heart-btn '+(liked?'liked':'')+'" onclick="toggleReviewHeart(\''+q.id+'\',this)">'+
+    '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">'+
+    '<path class="rh-path" d="M12 21s-9-6.5-9-12.5C3 5.42 5.42 3 8.5 3c1.74 0 3.41.81 4.5 2.08C14.09 3.81 15.76 3 17.5 3 20.58 3 23 5.42 23 8.5 23 14.5 12 21 12 21z"/>'+
+    '</svg></button></div>';
+}
+
+function toggleReviewHeart(qid,btn){
+  if(likedSet.has(qid)){likedSet.delete(qid);btn.classList.remove('liked');}
+  else{likedSet.add(qid);btn.classList.add('liked');}
+  buildReviewStats();
+}
+
+function goHome(){swipeReady=false;showScreen('home');applyStrings();}
+function continueSession(){
+  showScreen('session');applyStrings();resetCarousel();updateStones();updateDepthLabel();updateHeartUI();updateLovedText();
+  if(!swipeReady){initSwipe();swipeReady=true;}
+}
+function showScreen(n){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+n).classList.add('active');
+  document.getElementById('btn-stop').style.display = n==='session' ? '' : 'none';
+  document.getElementById('btn-continue').style.display = n==='review' ? '' : 'none';
+}
+
+// ── DARK MODE ──
+let darkMode = false;
+const moonSVG = '<svg class="theme-icon" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z" fill="var(--text)" opacity="0.5"/></svg>';
+const sunSVG = '<svg class="theme-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" fill="var(--text)" opacity="0.5"/><g stroke="var(--text)" stroke-width="1.5" stroke-linecap="round" opacity="0.5"><line x1="12" y1="1" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/></g></svg>';
+function updateThemeIcons(){
+  const icon = darkMode ? sunSVG : moonSVG;
+  const el=document.getElementById('theme-toggle');
+  if(el) el.innerHTML=icon;
+}
+function toggleTheme(){
+  darkMode = !darkMode;
+  document.documentElement.classList.toggle('dark', darkMode);
+  updateThemeIcons();
+}
+updateThemeIcons();
+
+applyStrings();
+</script>
+</body>
+</html>
