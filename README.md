@@ -26,8 +26,8 @@ Open `index.html` in your browser or visit: (https://carl-dot-gg.github.io/go-de
 
 - **Total:** 170 questions
 - **Light:** 16 questions (#001-#016)
-- **Medium:** 39 questions (#017-#055)
-- **Deep:** 71 questions (#056-#126)
+- **Medium:** 38 questions (#017-#054)
+- **Deep:** 72 questions (#055-#126)
 - **Deeper:** 44 questions (#127-#170)
 
 ## 🌍 Languages
