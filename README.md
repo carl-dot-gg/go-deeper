@@ -24,11 +24,11 @@ Open `index.html` in your browser or visit: (https://carl-dot-gg.github.io/go-de
 
 ## 📊 Question stats
 
-- **Total:** 169 questions
-- **Light:** 16 questions (#001-#016)
-- **Medium:** 37 questions (#017-#053)
-- **Deep:** 72 questions (#054-#125)
-- **Deeper:** 44 questions (#126-#169)
+- **Total:** 171 questions
+- **Light:** 17 questions (#001-#017)
+- **Medium:** 38 questions (#018-#055)
+- **Deep:** 72 questions (#056-#127)
+- **Deeper:** 44 questions (#128-#171)
 
 ## 🌍 Languages
 

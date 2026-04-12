@@ -96,6 +96,12 @@
     "fr": "Si tu pouvais te réveiller demain avec une nouvelle qualité ou capacité, ce serait quoi?"
   },
   {
+    "id": "l21b",
+    "depth": "light",
+    "en": "What's your earliest memory?",
+    "fr": "Quel est ton souvenir le plus lointain?"
+  },
+  {
     "id": "d01",
     "depth": "medium",
     "en": "When have you felt the most alive?",
@@ -316,6 +322,12 @@
     "depth": "medium",
     "en": "World leaders have gathered and they call you to fix one thing. What is it?",
     "fr": "Les dirigeants du monde se sont réunis et ils t'appellent pour régler un truc. C'est quoi?"
+  },
+  {
+    "id": "m44",
+    "depth": "medium",
+    "en": "Has something trivial ever changed your life in a big way?",
+    "fr": "Quel événement anodin a eu un impact considérable sur ta vie?"
   },
   {
     "id": "d03",
