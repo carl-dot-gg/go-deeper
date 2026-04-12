@@ -41,8 +41,8 @@
   .lang-option:hover { background: var(--bg); }
   .lang-label { font-size: 12px; color: var(--text-muted); }
 
-  body { background: var(--bg); font-family: 'DM Sans', sans-serif; min-height: 100vh; overflow-x: hidden; }
-  .screen { display: none; min-height: 100vh; flex-direction: column; }
+  body { background: var(--bg); font-family: 'DM Sans', sans-serif; height: 100vh; overflow: hidden; }
+  .screen { display: none; height: 100vh; flex-direction: column; overflow: hidden; }
   .screen.active { display: flex; }
 
   /* ── HOME ── */
@@ -86,9 +86,16 @@
     background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
     padding: 1.75rem 1.75rem 1rem; width: 100%; position: relative;
     user-select: none; display: flex; flex-direction: column; justify-content: center;
-    height: 260px;
+    min-height: 220px;
   }
-  .q-text { font-family: 'DM Serif Display', serif; font-size: 24px; line-height: 1.38; color: var(--text); letter-spacing: -0.3px; text-align: left; flex: 1; display: flex; align-items: center; overflow-y: auto; }
+  .q-text { font-family: 'DM Serif Display', serif; font-size: 24px; line-height: 1.38; color: var(--text); letter-spacing: -0.3px; text-align: left; flex: 1; display: flex; align-items: center; }
+  @media (max-height: 700px) {
+    .q-card { min-height: 180px; }
+    .q-text { font-size: 20px; }
+  }
+  @media (max-width: 380px) {
+    .q-text { font-size: 20px; }
+  }
   .card-bottom { width: 100%; margin-top: 1rem; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
   .card-bottom-row { display: flex; align-items: center; justify-content: space-between; width: 100%; height: 30px; }
 
@@ -150,7 +157,7 @@
   .deeper-prompt-no:hover { border-color: var(--text); color: var(--text); }
 
   /* ── REVIEW ── */
-  .review-screen { padding: 3.5rem 0 0; overflow-y: auto; min-height: 100vh; display: flex; flex-direction: column; }
+  .review-screen { padding: 3.5rem 0 0; overflow-y: auto; display: flex; flex-direction: column; }
   .continue-btn { font-size: 12px; font-weight: 500; color: var(--accent); background: var(--accent-light); border: 1px solid rgba(45,74,62,0.2); cursor: pointer; padding: 6px 14px; border-radius: 8px; font-family: 'DM Sans', sans-serif; white-space: nowrap; }
   .continue-btn:hover { opacity: 0.85; }
   .review-hero { text-align: center; padding: 0.5rem 1.5rem 0; }
