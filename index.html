@@ -20,33 +20,50 @@
     --stone-empty: rgba(255,255,255,0.15);
   }
   /* Theme toggle */
-  /* ── GLOBAL TOOLBAR ── */
-  .global-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 1rem 1.5rem; display: flex; align-items: flex-start; justify-content: space-between; pointer-events: none; }
-  .global-bar > * { pointer-events: auto; }
-  .global-left { display: flex; flex-direction: column; gap: 6px; align-items: center; }
-  .global-right { display: flex; flex-direction: column; gap: 6px; align-items: center; position: relative; }
-  .global-btn { background: none; border: none; cursor: pointer; padding: 4px; display: flex; align-items: center; justify-content: center; opacity: 0.6; transition: opacity 0.2s; color: var(--text); }
-  .global-btn:hover { opacity: 1; }
-  .global-btn svg { width: 20px; height: 20px; stroke: var(--text); display: block; }
-  .global-btn .theme-icon { width: 20px; height: 20px; display: block; }
+  /* ── NAVBAR ── */
+  .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 500; height: 52px; padding: 0 1.25rem; display: flex; align-items: center; justify-content: space-between; background: var(--bg); border-bottom: 1px solid var(--border); }
+  .nav-left { display: flex; align-items: center; gap: 10px; }
+  .nav-right { display: flex; align-items: center; gap: 10px; }
+  .nav-btn { background: none; border: none; cursor: pointer; padding: 6px; display: flex; align-items: center; justify-content: center; color: var(--text); opacity: 0.6; transition: opacity 0.2s; }
+  .nav-btn:hover { opacity: 1; }
+  .nav-btn svg { width: 22px; height: 22px; stroke: var(--text); display: block; }
+  .nav-btn .theme-icon { width: 20px; height: 20px; display: block; }
+  .hamburger-lines { display: flex; flex-direction: column; gap: 4px; width: 18px; }
+  .hamburger-lines span { display: block; height: 2px; background: var(--text); border-radius: 1px; }
   .stop-btn { width: 32px; height: 32px; border-radius: 50%; background: var(--surface); border: 1.5px solid var(--border); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
   .stop-btn:hover { border-color: var(--text-muted); }
   .stop-btn .stop-icon { width: 11px; height: 11px; background: var(--text-muted); border-radius: 2px; }
-  .lang-trigger { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 6px 10px; font-size: 18px; cursor: pointer; display: flex; align-items: center; gap: 5px; }
-  .lang-chevron { font-size: 9px; color: var(--text-muted); transition: transform 0.2s; }
-  .lang-trigger.open .lang-chevron { transform: rotate(180deg); }
-  .lang-menu { position: absolute; right: 0; top: calc(100% + 6px); background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; display: none; min-width: 80px; z-index: 200; }
+  .continue-btn { font-size: 12px; font-weight: 500; color: var(--accent); background: var(--accent-light); border: 1px solid rgba(45,74,62,0.2); cursor: pointer; padding: 6px 14px; border-radius: 8px; font-family: 'DM Sans', sans-serif; white-space: nowrap; }
+  .continue-btn:hover { opacity: 0.85; }
+  .lang-trigger { background: none; border: none; font-size: 20px; cursor: pointer; padding: 4px; display: flex; align-items: center; }
+  .lang-menu { position: absolute; right: 0; top: calc(100% + 6px); background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; display: none; min-width: 80px; z-index: 600; }
   .lang-menu.visible { display: block; }
   .lang-option { padding: 8px 12px; font-size: 16px; cursor: pointer; display: flex; align-items: center; gap: 8px; }
   .lang-option:hover { background: var(--bg); }
   .lang-label { font-size: 12px; color: var(--text-muted); }
+  /* ── HAMBURGER MENU ── */
+  .menu-overlay { position: fixed; inset: 0; z-index: 550; background: rgba(0,0,0,0.3); display: none; }
+  .menu-overlay.visible { display: block; }
+  .menu-drawer { position: fixed; top: 0; left: 0; bottom: 0; width: 260px; z-index: 560; background: var(--surface); border-right: 1px solid var(--border); transform: translateX(-100%); transition: transform 0.25s ease; padding: 1rem 0; display: flex; flex-direction: column; }
+  .menu-overlay.visible .menu-drawer { transform: translateX(0); }
+  .menu-header { padding: 0.75rem 1.25rem 1rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .menu-title { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--text); }
+  .menu-close { background: none; border: none; cursor: pointer; padding: 4px; color: var(--text-muted); font-size: 20px; }
+  .menu-items { padding: 0.75rem 0; flex: 1; }
+  .menu-item { padding: 12px 1.5rem; display: flex; align-items: center; gap: 12px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 15px; color: var(--text); transition: background 0.15s; }
+  .menu-item:hover { background: var(--bg); }
+  .menu-item svg { width: 20px; height: 20px; stroke: var(--text-muted); flex-shrink: 0; }
+  .menu-item .theme-icon { width: 20px; height: 20px; flex-shrink: 0; }
+  .menu-lang { padding: 12px 1.5rem; display: flex; align-items: center; gap: 12px; cursor: pointer; font-size: 15px; color: var(--text); }
+  .menu-lang:hover { background: var(--bg); }
+  .menu-lang-flag { font-size: 20px; }
 
   body { background: var(--bg); font-family: 'DM Sans', sans-serif; height: 100vh; height: 100dvh; overflow: hidden; }
   .screen { display: none; height: 100vh; height: 100dvh; flex-direction: column; overflow: hidden; }
   .screen.active { display: flex; }
 
   /* ── HOME ── */
-  .home-screen { padding: 3.5rem 2rem 2.5rem; justify-content: center; align-items: center; position: relative; gap: 2.5rem; }
+  .home-screen { padding: 52px 2rem 2.5rem; justify-content: center; align-items: center; position: relative; gap: 2.5rem; }
   .home-title-wrap { text-align: center; }
   .app-title { font-family: 'DM Serif Display', serif; font-size: 52px; color: var(--text); letter-spacing: -1.5px; line-height: 1; }
   .app-title em { font-style: italic; color: var(--accent); }
@@ -73,7 +90,7 @@
   .start-btn:hover { opacity: 0.88; }
 
   /* ── SESSION ── */
-  .session-screen { padding: 3.5rem 0 0; position: relative; overflow: hidden; }
+  .session-screen { padding: 52px 0 0; position: relative; overflow: hidden; }
 
   /* Card area — carousel container */
   .card-area { flex: 1; display: flex; align-items: center; justify-content: center; padding: 0.5rem 0; position: relative; }
@@ -154,9 +171,7 @@
   .deeper-prompt-no:hover { border-color: var(--text); color: var(--text); }
 
   /* ── REVIEW ── */
-  .review-screen { padding: 3.5rem 0 0; overflow-y: auto; display: flex; flex-direction: column; }
-  .continue-btn { font-size: 12px; font-weight: 500; color: var(--accent); background: var(--accent-light); border: 1px solid rgba(45,74,62,0.2); cursor: pointer; padding: 6px 14px; border-radius: 8px; font-family: 'DM Sans', sans-serif; white-space: nowrap; }
-  .continue-btn:hover { opacity: 0.85; }
+  .review-screen { padding: 52px 0 0; overflow-y: auto; display: flex; flex-direction: column; }
   .review-hero { text-align: center; padding: 0.5rem 1.5rem 0; }
   .review-title { font-family: 'DM Serif Display', serif; font-size: 32px; color: var(--text); letter-spacing: -0.5px; }
   .review-stats { font-size: 13px; color: var(--text-muted); margin-top: 6px; }
@@ -187,33 +202,54 @@
 </head>
 <body>
 
-<!-- GLOBAL TOOLBAR -->
-<div class="global-bar" id="global-bar">
-  <div class="global-left">
-    <button class="global-btn" onclick="goHome()" title="Home" id="btn-home">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/>
-        <path d="M9 21V12h6v9"/>
-      </svg>
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-left">
+    <button class="nav-btn" onclick="openMenu()" id="btn-hamburger" title="Menu">
+      <div class="hamburger-lines"><span></span><span></span><span></span></div>
     </button>
-    <button class="global-btn" onclick="toggleTheme()" id="theme-toggle">
-    </button>
-  </div>
-  <div class="global-right">
-    <div style="position:relative;">
+    <div id="nav-lang-wrap" style="position:relative;">
       <div class="lang-trigger" id="lang-trigger" onclick="toggleLang(event)">
         <span id="lang-flag">🇬🇧</span>
-        <span class="lang-chevron">▾</span>
       </div>
       <div class="lang-menu" id="lang-menu">
         <div class="lang-option" onclick="setLang('en')">🇬🇧 <span class="lang-label">English</span></div>
         <div class="lang-option" onclick="setLang('fr')">🇫🇷 <span class="lang-label">Français</span></div>
       </div>
     </div>
+  </div>
+  <div class="nav-right">
     <button class="stop-btn" onclick="endSession()" title="End session" id="btn-stop" style="display:none;">
       <div class="stop-icon"></div>
     </button>
     <button class="continue-btn" onclick="continueSession()" data-i18n="continue_session" id="btn-continue" style="display:none;">Continue</button>
+  </div>
+</nav>
+
+<!-- HAMBURGER MENU -->
+<div class="menu-overlay" id="menu-overlay" onclick="closeMenu()">
+  <div class="menu-drawer" onclick="event.stopPropagation()">
+    <div class="menu-header">
+      <span class="menu-title">go <em style="color:var(--accent);font-style:italic">deeper</em></span>
+      <button class="menu-close" onclick="closeMenu()">&times;</button>
+    </div>
+    <div class="menu-items">
+      <div class="menu-item" id="menu-home" onclick="goHome();closeMenu()">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/>
+          <path d="M9 21V12h6v9"/>
+        </svg>
+        <span data-i18n="menu_home">Home</span>
+      </div>
+      <div class="menu-item" onclick="toggleTheme();closeMenu()">
+        <span id="theme-toggle"></span>
+        <span id="menu-theme-label">Dark mode</span>
+      </div>
+      <div class="menu-lang" onclick="cycleLang();closeMenu()">
+        <span class="menu-lang-flag" id="menu-lang-flag">🇬🇧</span>
+        <span id="menu-lang-label">English</span>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -380,7 +416,7 @@ const STRINGS = {
     filter_all: "All",
     stat_answered: "answered", stat_loved: "loved", stat_skipped: "skipped",
     label_loved: "Questions you loved", label_answered: "Answered",
-    new_session: "New session", continue_session: "Continue", back_home: "Back to home",
+    menu_home: "Home", new_session: "New session", continue_session: "Continue", back_home: "Back to home",
     questions_seen: "questions", none: "None", hint_prev: "Previous", hint_next: "Next",
     prompt_title: "Go deeper?", prompt_yes: "Let's go", prompt_no: "End session",
     prompt_sub_medium: "You've explored all the <strong>light</strong> questions.<br><br>Ready for <strong>medium</strong> <span class='prompt-stones'><span class='prompt-stone ps-1'></span><span class='prompt-stone empty'></span><span class='prompt-stone empty'></span></span>?",
@@ -402,7 +438,7 @@ const STRINGS = {
     filter_all: "Toutes",
     stat_answered: "répondues", stat_loved: "aimées", stat_skipped: "passées",
     label_loved: "Les questions que t'as aimées", label_answered: "Répondues",
-    new_session: "Nouvelle session", continue_session: "Continuer", back_home: "Retour",
+    menu_home: "Accueil", new_session: "Nouvelle session", continue_session: "Continuer", back_home: "Retour",
     questions_seen: "questions", none: "Aucune", hint_prev: "Précédent", hint_next: "Suivant",
     prompt_title: "On va plus loin?", prompt_yes: "On y va", prompt_no: "Terminer la session",
     prompt_sub_medium: "T'as fait le tour des questions <strong>légères</strong>.<br><br>Prêt pour le niveau <strong>moyen</strong> <span class='prompt-stones'><span class='prompt-stone ps-1'></span><span class='prompt-stone empty'></span><span class='prompt-stone empty'></span></span>?",
@@ -598,24 +634,34 @@ let navHistory=[], swipeReady=false, currentLiked=false;
 
 function t(k){return(STRINGS[lang]&&STRINGS[lang][k])||STRINGS.en[k]||k;}
 
+// ── MENU ──
+function openMenu(){document.getElementById('menu-overlay').classList.add('visible');}
+function closeMenu(){document.getElementById('menu-overlay').classList.remove('visible');}
+function cycleLang(){
+  setLang(lang==='en'?'fr':'en');
+}
 function toggleLang(e){
   if(e) e.stopPropagation();
-  const m=document.getElementById('lang-menu'),tr=document.getElementById('lang-trigger');
-  const show = !m.classList.contains('visible');
-  m.classList.toggle('visible', show);
-  tr.classList.toggle('open', show);
+  const m=document.getElementById('lang-menu');
+  m.classList.toggle('visible');
 }
 document.addEventListener('click',e=>{
   if(!e.target.closest('.lang-trigger')&&!e.target.closest('.lang-menu')){
     document.getElementById('lang-menu').classList.remove('visible');
-    document.getElementById('lang-trigger').classList.remove('open');
   }
 });
+function updateLangUI(){
+  const flag=lang==='en'?'🇬🇧':'🇫🇷';
+  const label=lang==='en'?'English':'Français';
+  document.getElementById('lang-flag').textContent=flag;
+  document.getElementById('menu-lang-flag').textContent=flag;
+  document.getElementById('menu-lang-label').textContent=label;
+  document.getElementById('menu-theme-label').textContent=darkMode?(lang==='fr'?'Mode clair':'Light mode'):(lang==='fr'?'Mode sombre':'Dark mode');
+}
 function setLang(l){
-  lang=l;document.getElementById('lang-flag').textContent=l==='en'?'🇬🇧':'🇫🇷';
+  lang=l;
   document.getElementById('lang-menu').classList.remove('visible');
-  document.getElementById('lang-trigger').classList.remove('open');
-  applyStrings();updateAllSlots();
+  updateLangUI();applyStrings();updateAllSlots();
 }
 function applyStrings(){
   document.querySelectorAll('[data-i18n]').forEach(el=>el.innerHTML=t(el.getAttribute('data-i18n')));
@@ -968,6 +1014,8 @@ function showScreen(n){
   document.getElementById('screen-'+n).classList.add('active');
   document.getElementById('btn-stop').style.display = n==='session' ? '' : 'none';
   document.getElementById('btn-continue').style.display = n==='review' ? '' : 'none';
+  // Show flag in navbar on home, hide on other screens (available in menu)
+  document.getElementById('nav-lang-wrap').style.display = n==='home' ? '' : 'none';
 }
 
 // ── DARK MODE ──
@@ -983,8 +1031,10 @@ function toggleTheme(){
   darkMode = !darkMode;
   document.documentElement.classList.toggle('dark', darkMode);
   updateThemeIcons();
+  updateLangUI();
 }
 updateThemeIcons();
+updateLangUI();
 
 applyStrings();
 </script>
