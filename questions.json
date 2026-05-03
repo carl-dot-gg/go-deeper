@@ -330,6 +330,12 @@
     "fr": "Quel événement anodin a eu un impact considérable sur ta vie?"
   },
   {
+    "id": "m45",
+    "depth": "medium",
+    "en": "What's the best gift you've ever given, and the best one you've ever received?",
+    "fr": "C'est quoi le meilleur cadeau que t'as offert, et le meilleur que t'as reçu?"
+  },
+  {
     "id": "d03",
     "depth": "deep",
     "en": "What did you stop fighting in yourself?",
